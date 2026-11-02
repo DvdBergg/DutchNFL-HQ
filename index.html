@@ -877,7 +877,10 @@ window.dash = (() => {
   .lg-prize-sub { font-size: 12.5px; color: var(--ff-muted); line-height: 1.45; }
   .lg-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--ff-line); color: var(--ff-ink); background: var(--ff-bg); }
   .lg-tag .ff-dot { width: 7px; height: 7px; }
-  .lg-tag.t-Dennis, .lg-tag.t-Carlier { background: linear-gradient(90deg, #0b0b0c 0 50%, #d3bc8d 50% 100%); border-color: #d3bc8d; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.65); }
+  .lg-tag.t-Dennis, .lg-tag.t-Carlier { background: linear-gradient(160deg, #e2cd9f, #c4a86f); border-color: #e9d6aa; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.65); }
+  .lg-tag.t-Darryl { background: #e31837; border-color: #ffb81c; color: #fff; }
+  .lg-tag.t-Eric-Jan { background: #aa0000; border-color: #b3995d; color: #fff; }
+  .lg-tag.t-Connor { background: #002244; border-color: #c60c30; color: #fff; }
   .lg-tag.t-Wesley { background: #00256b; border-color: #c60c30; color: #fff; }
   .lg-tag.t-Gevers { background: #021426; border-color: #69be28; color: #fff; }
   .lg-wrap { min-height: 0; }
@@ -2986,7 +2989,9 @@ window.dash = (() => {
       el.classList.toggle('skin-ember', skin === 'ember');
       el.classList.toggle('skin-fluenta', skin === 'fluenta');
       el.classList.toggle('skin-relay', skin === 'relay');
-      ['dennis', 'wesley', 'carlier', 'gevers', 'darryl', 'eric-jan', 'connor'].forEach((k) => el.classList.toggle('team-' + k, teamOf().toLowerCase() === k));
+      // The League page belongs to everyone, so it keeps the neutral black and gold look.
+      const onLeague = dash.params().tab === 'league';
+      ['dennis', 'wesley', 'carlier', 'gevers', 'darryl', 'eric-jan', 'connor'].forEach((k) => el.classList.toggle('team-' + k, !onLeague && teamOf().toLowerCase() === k));
       el.classList.toggle('skin-card', true);
     });
     document.querySelectorAll('.ff-skin').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.skin === skin)));
