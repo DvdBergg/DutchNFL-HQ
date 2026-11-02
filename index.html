@@ -2573,10 +2573,44 @@ window.dash = (() => {
   window.addEventListener('scroll', toTop, {passive: true});
   document.addEventListener('scroll', toTop, {passive: true, capture: true});
   toTop();
+  // Inside Claude the page can be shown at full height in a frame, with the app scrolling around it.
+  // Then "fixed" means the bottom of the whole page, so place the button at the bottom of the visible part.
+  const tall = () => window.innerHeight > ((window.screen && window.screen.height) || 900) + 120;
+  try {
+    // Watch the page's sections: where they are cut off tells us which part of the page is on screen.
+    const seen = new Map(), watched = new WeakSet();
+    const place = () => {
+      if (!tall()) { document.querySelectorAll('.ff-totop').forEach((b) => { b.style.position = ''; b.style.top = ''; b.style.bottom = ''; }); return; }
+      let top = null, bottom = null, lowest = null;
+      seen.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const r = e.boundingClientRect, v = e.intersectionRect;
+        lowest = lowest == null ? v.bottom : Math.max(lowest, v.bottom);
+        if (r.bottom > v.bottom + 1) bottom = bottom == null ? v.bottom : Math.max(bottom, v.bottom);
+        if (r.top < v.top - 1) top = top == null ? v.top : Math.min(top, v.top);
+      });
+      if (bottom == null) bottom = lowest;
+      if (bottom == null) return;
+      const on = (top || 0) > 500;
+      document.querySelectorAll('.ff-totop').forEach((b) => {
+        b.classList.toggle('on', on);
+        b.style.position = 'absolute'; b.style.bottom = 'auto';
+        b.style.top = Math.max(0, (window.scrollY || 0) + bottom - 66) + 'px';
+      });
+    };
+    const io = new IntersectionObserver((entries) => { entries.forEach((e) => seen.set(e.target, e)); place(); }, {threshold: Array.from({length: 41}, (_, i) => i / 40)});
+    const watch = () => {
+      if (!tall()) return;
+      document.querySelectorAll('.ff-hero, .ff-section, .ff-section > *, .ff-page > *').forEach((el) => { if (!watched.has(el)) { watched.add(el); io.observe(el); } });
+      seen.forEach((e, el) => { if (!el.isConnected) { seen.delete(el); io.unobserve(el); } });
+    };
+    watch(); setInterval(watch, 2500);
+  } catch (e) { /* older browsers keep the plain button */ }
   document.querySelectorAll('.ff-totop').forEach((b) => b.addEventListener('click', () => {
     let smooth = true; try { smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
     const opt = {top: 0, behavior: smooth ? 'smooth' : 'auto'};
     if (scroller) scroller.scrollTo(opt); else window.scrollTo(opt);
+    if (tall()) { const top = document.querySelector('.ff'); if (top) top.scrollIntoView({behavior: opt.behavior, block: 'start'}); }
   }));
 
   // Suggested fantasy trades: match this roster's weakest position and spare depth with another DutchNFL roster that fits the other way
