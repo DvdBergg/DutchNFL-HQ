@@ -1027,6 +1027,17 @@ window.dash = (() => {
   .lg-shot .lg-wrap { overflow: visible; }
   .lg-shot #lg-weekly .lg-table { font-size: 11.5px; }
   .lg-shot #lg-weekly .lg-table th, .lg-shot #lg-weekly .lg-table td { padding-left: 4px; padding-right: 4px; }
+  /* Phone: the page tabs become an app-style bar at the bottom of the screen */
+  .ff-tab-ico, .ff-tab-s { display: none; }
+  @media (max-width: 620px) {
+    .skin-card .ff-tabs { position: fixed; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 60; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; padding: 6px; border-radius: 22px; background: rgba(14,14,16,.9); border: 1px solid var(--ff-line); box-shadow: 0 10px 30px rgba(0,0,0,.5); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); overflow: visible; }
+    .ff:not(.dark) .ff-tabs { background: rgba(255,255,255,.92); }
+    .skin-card .ff-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 2px 6px; border-radius: 16px; font-size: 11px; font-weight: 600; line-height: 1.1; min-height: 0; }
+    .ff-tab .ff-tab-ico { display: block; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .ff-tab .ff-tab-l { display: none; } .ff-tab .ff-tab-s { display: block; }
+    .ff.skin-card { padding-bottom: 92px; }
+    .ff-totop { bottom: calc(max(10px, env(safe-area-inset-bottom)) + 84px); }
+  }
 </style>
 
 <div class="ff skin-relay skin-card dark">
@@ -1041,10 +1052,10 @@ window.dash = (() => {
   <header class="ff-top">
     <div class="ff-brand"><span class="ff-mark">FF</span><span>Fantasy Football</span></div>
     <nav class="ff-tabs" role="tablist" aria-label="Pages">
-      <button type="button" class="ff-tab" role="tab" data-tab="team" aria-selected="true" id="tab-team">Team news</button>
-      <button type="button" class="ff-tab" role="tab" data-tab="transfers" aria-selected="false" id="tab-transfers">Transfer news</button>
-      <button type="button" class="ff-tab" role="tab" data-tab="waivers" aria-selected="false" id="tab-waivers">Waivers</button>
-      <button type="button" class="ff-tab" role="tab" data-tab="league" aria-selected="false" id="tab-league">League</button>
+      <button type="button" class="ff-tab" role="tab" data-tab="team" aria-selected="true" id="tab-team"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span class="ff-tab-l">Team news</span><span class="ff-tab-s">Team</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="transfers" aria-selected="false" id="tab-transfers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg><span class="ff-tab-l">Transfer news</span><span class="ff-tab-s">Transfers</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="waivers" aria-selected="false" id="tab-waivers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="ff-tab-l">Waivers</span><span class="ff-tab-s">Waivers</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="league" aria-selected="false" id="tab-league"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.5 4.5 3 5M17 6h3c0 3-1.5 4.5-3 5M10 14h4l1 4H9zM8 20h8"/></svg><span class="ff-tab-l">League</span><span class="ff-tab-s">League</span></button>
     </nav>
     <button type="button" class="ff-theme ff-refresh" aria-label="Copy a refresh prompt to send Claude in the chat">
       <span class="ff-refresh-idle"><svg class="ff-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>Refresh news</span>
@@ -2580,7 +2591,7 @@ window.dash = (() => {
     // Watch the page's sections: where they are cut off tells us which part of the page is on screen.
     const seen = new Map(), watched = new WeakSet();
     const place = () => {
-      if (!tall()) { document.querySelectorAll('.ff-totop').forEach((b) => { b.style.position = ''; b.style.top = ''; b.style.bottom = ''; }); return; }
+      if (!tall()) { document.querySelectorAll('.ff-totop, .ff-tabs').forEach((b) => { b.style.position = ''; b.style.top = ''; b.style.bottom = ''; }); return; }
       let top = null, bottom = null, lowest = null;
       seen.forEach((e) => {
         if (!e.isIntersecting) return;
@@ -2592,10 +2603,14 @@ window.dash = (() => {
       if (bottom == null) bottom = lowest;
       if (bottom == null) return;
       const on = (top || 0) > 500;
+      const at = (el, docY) => { const op = el.offsetParent; const base = op ? op.getBoundingClientRect().top + (window.scrollY || 0) : 0; el.style.position = 'absolute'; el.style.bottom = 'auto'; el.style.top = Math.max(0, docY - base) + 'px'; };
+      const phone = window.innerWidth <= 620;
+      const bar = phone ? document.querySelector('.ff-tabs') : null;
+      const barH = bar ? bar.offsetHeight + 10 : 0;
+      if (bar) at(bar, (window.scrollY || 0) + bottom - barH);
       document.querySelectorAll('.ff-totop').forEach((b) => {
         b.classList.toggle('on', on);
-        b.style.position = 'absolute'; b.style.bottom = 'auto';
-        b.style.top = Math.max(0, (window.scrollY || 0) + bottom - 66) + 'px';
+        at(b, (window.scrollY || 0) + bottom - 66 - barH);
       });
     };
     const io = new IntersectionObserver((entries) => { entries.forEach((e) => seen.set(e.target, e)); place(); }, {threshold: Array.from({length: 41}, (_, i) => i / 40)});
