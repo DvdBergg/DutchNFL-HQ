@@ -2560,10 +2560,24 @@ window.dash = (() => {
   });
 
   // Back to top: a floating button that shows once you scroll down
-  const toTop = () => { const on = (window.scrollY || document.documentElement.scrollTop) > 500; document.querySelectorAll('.ff-totop').forEach((b) => b.classList.toggle('on', on)); };
+  // The page may scroll in the window or in a container around it (inside Claude), so watch both.
+  let scroller = null;
+  const scrollTopOf = (el) => (el ? el.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0));
+  const toTop = (e) => {
+    const t = e && e.target;
+    if (t && t.nodeType === 1 && t.contains(document.querySelector('.ff')) && t.scrollHeight > t.clientHeight + 200) scroller = t;
+    else if (t === document || (t && t.nodeType === 9)) scroller = null;
+    const on = scrollTopOf(scroller) > 500;
+    document.querySelectorAll('.ff-totop').forEach((b) => b.classList.toggle('on', on));
+  };
   window.addEventListener('scroll', toTop, {passive: true});
+  document.addEventListener('scroll', toTop, {passive: true, capture: true});
   toTop();
-  document.querySelectorAll('.ff-totop').forEach((b) => b.addEventListener('click', () => { let smooth = true; try { smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {} window.scrollTo({top: 0, behavior: smooth ? 'smooth' : 'auto'}); }));
+  document.querySelectorAll('.ff-totop').forEach((b) => b.addEventListener('click', () => {
+    let smooth = true; try { smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    const opt = {top: 0, behavior: smooth ? 'smooth' : 'auto'};
+    if (scroller) scroller.scrollTo(opt); else window.scrollTo(opt);
+  }));
 
   // Suggested fantasy trades: match this roster's weakest position and spare depth with another DutchNFL roster that fits the other way
   const TR_TEAMS = {Dennis: 'Gunners', Wesley: "2 Brown's 1 Trophy", Carlier: 'Alvin and the ChipMunks', Gevers: 'Pink Panthers', Melvin: 'Mella020', 'André': 'The Hague Old Rocker', Thijs: 'Bo-Nixflix and chill', Darryl: 'Kelce Ya Later', Matt: 'Drake "Drake Maye" Maye', Ylon: 'Blue Mountain State', 'Eric-Jan': 'Poldervogels', Connor: "CeeDee's Nuts"};
