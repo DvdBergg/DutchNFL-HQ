@@ -1037,6 +1037,7 @@ window.dash = (() => {
     .ff-tab .ff-tab-l { display: none; } .ff-tab .ff-tab-s { display: block; }
     .ff.skin-card { padding-bottom: 92px; }
     .ff-totop { bottom: calc(max(10px, env(safe-area-inset-bottom)) + 84px); }
+    .skin-card .ff-tabs.ff-inflow { position: static; flex: 1 1 100%; margin: 0 0 4px; box-shadow: none; }
   }
 </style>
 
@@ -2591,7 +2592,8 @@ window.dash = (() => {
     // Watch the page's sections: where they are cut off tells us which part of the page is on screen.
     const seen = new Map(), watched = new WeakSet();
     const place = () => {
-      if (!tall()) { document.querySelectorAll('.ff-totop, .ff-tabs').forEach((b) => { b.style.position = ''; b.style.top = ''; b.style.bottom = ''; }); return; }
+      const reset = () => document.querySelectorAll('.ff-totop, .ff-tabs').forEach((b) => { b.style.position = ''; b.style.top = ''; b.style.bottom = ''; });
+      if (!tall()) { reset(); document.querySelectorAll('.ff-tabs').forEach((b) => b.classList.remove('ff-inflow')); return; }
       let top = null, bottom = null, lowest = null;
       seen.forEach((e) => {
         if (!e.isIntersecting) return;
@@ -2600,12 +2602,17 @@ window.dash = (() => {
         if (r.bottom > v.bottom + 1) bottom = bottom == null ? v.bottom : Math.max(bottom, v.bottom);
         if (r.top < v.top - 1) top = top == null ? v.top : Math.min(top, v.top);
       });
+      // Nothing cut off anywhere: the app shows the whole page and scrolls it itself, so we can't follow.
+      // Then the tabs stay at the top of the page and the back-to-top button stays hidden.
+      const blind = bottom == null && top == null;
+      document.querySelectorAll('.ff-tabs').forEach((b) => b.classList.toggle('ff-inflow', blind));
+      if (blind) { reset(); document.querySelectorAll('.ff-totop').forEach((b) => b.classList.remove('on')); return; }
       if (bottom == null) bottom = lowest;
       if (bottom == null) return;
       const on = (top || 0) > 500;
       const at = (el, docY) => { const op = el.offsetParent; const base = op ? op.getBoundingClientRect().top + (window.scrollY || 0) : 0; el.style.position = 'absolute'; el.style.bottom = 'auto'; el.style.top = Math.max(0, docY - base) + 'px'; };
       const phone = window.innerWidth <= 620;
-      const bar = phone ? document.querySelector('.ff-tabs') : null;
+      const bar = phone ? document.querySelector('.ff-tabs:not(.ff-inflow)') : null;
       const barH = bar ? bar.offsetHeight + 10 : 0;
       if (bar) at(bar, (window.scrollY || 0) + bottom - barH);
       document.querySelectorAll('.ff-totop').forEach((b) => {
