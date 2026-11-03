@@ -555,6 +555,10 @@ window.dash = (() => {
   .ffc-inj.Q { background: #ffc94d; color: #1a1300; box-shadow: 0 0 12px rgba(255,201,77,.55); }
   .ffc-inj.D { background: #ff9a3d; color: #1a0d00; box-shadow: 0 0 12px rgba(255,154,61,.55); }
   .ffc-card.hurt .ffc-num { opacity: .7; }
+  .ffc-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; pointer-events: none; z-index: 0; }
+  .ffc-card.has-photo::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 52%, rgba(0,0,0,.88) 100%); }
+  .ffc-card.has-photo .ffc-tags, .ffc-card.has-photo .ffc-name, .ffc-card.has-photo .ffc-meta { z-index: 1; }
+  .ffc-card.has-photo .ffc-name, .ffc-card.has-photo .ffc-meta { position: relative; }
   .ffc-name { margin-top: auto; line-height: 1.05; }
   .ffc-first { display: block; font-size: calc(var(--w) * .085); opacity: .8; }
   .ffc-last { display: block; font-size: calc(var(--w) * .12); font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1887,7 +1891,11 @@ window.dash = (() => {
           const tags = mk('div', 'ffc-tags');
           tags.append(mk('span', 'ffc-pos', p.group === 'Starter' ? p.slot : p.pos));
           if (p.injury) { tags.append(mk('span', 'ffc-inj ' + p.injury, p.injury)); c.classList.add('hurt'); }
-          c.append(mk('div', 'ffc-num', j ? "'" + String(j).replace(/^#/, '') : initials(p.player)), tags);
+          if (PLAYER_PHOTO[p.player]) {
+            c.classList.add('has-photo');
+            const ph = mk('img', 'ffc-photo'); ph.src = PLAYER_PHOTO[p.player]; ph.alt = ''; ph.draggable = false;
+            c.append(ph, tags);
+          } else c.append(mk('div', 'ffc-num', j ? "'" + String(j).replace(/^#/, '') : initials(p.player)), tags);
           const parts = p.player.split(' ');
           const nm = mk('div', 'ffc-name');
           if (parts.length > 1) nm.append(mk('span', 'ffc-first', parts[0]));
