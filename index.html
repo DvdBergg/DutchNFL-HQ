@@ -224,6 +224,8 @@ window.dash = (() => {
   .ff-pc-num { position: absolute; left: 8px; top: 2px; font-size: 64px; font-weight: 300; letter-spacing: -.05em; line-height: 1; color: rgba(255,255,255,.9); }
   .ff-pc-ini.small { font-size: 18px; font-weight: 700; left: 10px; bottom: 8px; letter-spacing: .04em; opacity: .8; }
   .ff-pc-pos { position: absolute; right: 8px; top: 6px; font-size: 13px; font-weight: 700; font-style: italic; opacity: .75; }
+  .ff-pc-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  .ff-pc-art.has-photo .ff-pc-pos { padding: 1px 6px; border-radius: 999px; background: rgba(0,0,0,.55); opacity: 1; }
   .ff-pc-name { display: flex; flex-direction: column; line-height: 1.1; }
   .ff-pc-first { font-size: 16px; font-weight: 400; color: var(--ff-ink-2); }
   .ff-pc-last { font-size: 22px; font-weight: 700; color: var(--ff-ink); }
@@ -1633,6 +1635,7 @@ window.dash = (() => {
   const TEAM_NAME = {JAX:'Jacksonville Jaguars',BUF:'Buffalo Bills',MIN:'Minnesota Vikings',CAR:'Carolina Panthers',CIN:'Cincinnati Bengals',PHI:'Philadelphia Eagles',ARI:'Arizona Cardinals',NYJ:'New York Jets',HOU:'Houston Texans',IND:'Indianapolis Colts',SEA:'Seattle Seahawks',SF:'San Francisco 49ers',DET:'Detroit Lions',BAL:'Baltimore Ravens',TEN:'Tennessee Titans',WSH:'Washington Commanders',CHI:'Chicago Bears',LV:'Las Vegas Raiders',GB:'Green Bay Packers',DAL:'Dallas Cowboys',MIA:'Miami Dolphins',PIT:'Pittsburgh Steelers',NYG:'New York Giants',NE:'New England Patriots',LAC:'Los Angeles Chargers',LAR:'Los Angeles Rams',NO:'New Orleans Saints',TB:'Tampa Bay Buccaneers',DEN:'Denver Broncos',CLE:'Cleveland Browns',KC:'Kansas City Chiefs',ATL:'Atlanta Falcons',FA:'Free agent'};
   const STATUS = {'': ['Healthy', 'ok'], Q: ['Questionable', 'warn'], D: ['Doubtful', 'bad'], O: ['Out', 'bad'], IR: ['Injured reserve', 'bad']};
   const MANAGER = {Dennis: 'You (Dennis)', Wesley: 'Wesley', Carlier: 'Carlier', Gevers: 'Gevers'};
+  const PLAYER_PHOTO = {'James Cook III': 'img/cook.jpg'};
 
   dash.draw('pl-head', (el) => {
     const r = dash.data('roster');
@@ -1646,7 +1649,11 @@ window.dash = (() => {
     const s = dash.data('stats');
     const srow = s.status === 'ok' ? s.data.find((x) => x.player === p.player) : null;
     const jersey = srow && srow.jersey != null && String(srow.jersey).trim() !== '' ? String(srow.jersey).replace(/^#/, '') : '';
-    if (jersey) art.append(mk('span', 'ff-pc-num', "'" + jersey), mk('span', 'ff-pc-ini small', initials(p.player)));
+    if (PLAYER_PHOTO[p.player]) {
+      art.classList.add('has-photo');
+      const ph = mk('img', 'ff-pc-photo'); ph.src = PLAYER_PHOTO[p.player]; ph.alt = p.player; ph.loading = 'lazy';
+      art.append(ph);
+    } else if (jersey) art.append(mk('span', 'ff-pc-num', "'" + jersey), mk('span', 'ff-pc-ini small', initials(p.player)));
     else art.append(mk('span', 'ff-pc-ini', initials(p.player)));
     art.append(mk('span', 'ff-pc-pos', p.pos));
     // Middle: name, team, ELIG / MANAGER / STATUS
