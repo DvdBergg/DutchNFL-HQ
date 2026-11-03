@@ -1,0 +1,45 @@
+/* Taste pass for every page (tasteskill v2, app-screen rules, style "true-black flat", team palettes kept).
+   Elevation by lightness alone: no gradients, glows, text or drop shadows, glass, fake window chrome,
+   index numbers, monospace or tracked uppercase labels. Each team's colour stays the one accent, on data. */
+.ff.skin-relay.skin-card {
+  --ff-shadow: none;
+  --ff-line: color-mix(in srgb, var(--ff-ink) 11%, var(--ff-page));
+  --ff-line-2: color-mix(in srgb, var(--ff-ink) 7%, var(--ff-page));
+  --t-card: color-mix(in srgb, var(--ff-ink) 5%, transparent);
+  --t-nest: color-mix(in srgb, var(--ff-ink) 7%, transparent);
+  --t-hover: color-mix(in srgb, var(--ff-ink) 10%, transparent);
+}
+/* Decoration that carried no data: the side glow line, the loading intro, the plate and the window chrome */
+.ff.skin-relay::before, .ff.skin-relay::after, .skin-relay .ff-alerts::before, .skin-relay .ff-intro, .skin-relay .ff-plate, .skin-relay .ff-winbar, .ffc-sheen { display: none !important; }
+/* Panels: one tone step above the ground, one radius */
+.skin-relay .ff-hero, .skin-relay .ff-section, .skin-relay .ff-grid > section, .skin-relay .ff-pad, .skin-relay .ff-window { background: var(--t-card); border: 0; box-shadow: none; border-radius: 16px; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.skin-relay .ff-h2::before { display: none; }
+.skin-relay .ff-title { font-size: 28px; font-weight: 600; letter-spacing: -.02em; }
+.skin-relay .ff-title::first-letter { color: inherit; }
+.skin-relay .ff-sub, .skin-relay .ff-tile-label, .skin-relay .ff-deadline-label, .skin-relay .ff-alert-who { letter-spacing: 0; }
+.skin-relay .ff-sub { font-size: 14px; color: var(--ff-ink-2); }
+.skin-relay .ff-tile-label { font-size: 13px; font-weight: 500; color: var(--ff-ink-2); }
+/* KPI tiles: nested panels, the flagged one marked by the team colour on its number, not a gold block */
+.skin-relay .ff-tile, .skin-relay .ff-tile.alert { background: var(--t-nest); border: 0; box-shadow: none; border-radius: 12px; }
+.skin-relay .ff-tile-value { font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; text-shadow: none; }
+.skin-relay .ff-tile.alert .ff-tile-label { color: var(--ff-ink-2); }
+.skin-relay .ff-tile.alert .ff-tile-value { color: var(--ff-accent); }
+/* Shell: flat pills, no floating shadows */
+.skin-card .ff-brand, .skin-card .ff-tabs, .skin-card .ff-theme, .skin-card .ff-teambtn, .ff .ff-teams .ff-moreteams { box-shadow: none; }
+.ff .ff-teams .ff-teambtn[data-team="Dennis"], .ff .ff-teams .ff-teambtn[data-team="Carlier"] { background: #8c6f3a; border-color: #8c6f3a; }
+.ff .ff-teams .ff-teambtn[data-team="Dennis"] .ff-teamname, .ff .ff-teams .ff-teambtn[data-team="Carlier"] .ff-teamname { text-shadow: none; }
+.ff .ff-teams .ff-teambtn[data-team][aria-pressed="true"] { box-shadow: none; outline: 2px solid var(--ff-ink); outline-offset: 2px; }
+.skin-relay .ff-mark { box-shadow: none; }
+/* Cards and rows inside panels */
+.skin-relay .ff-card, .skin-relay .ff-news, .skin-relay .ff-alert, .skin-relay .ff-wv, .skin-relay .ff-tr, .skin-relay .ff-cd-box, .skin-relay .ff-car-slide > * { border-color: transparent; box-shadow: none; }
+.skin-relay .ff-wv.hot { box-shadow: inset 0 0 0 1px var(--ff-accent); }
+.ff-heat-meter i.on { background: #ff6b3d; box-shadow: none; }
+.ff-pc-art { background: var(--ff-team); }
+/* The player ring keeps its cards and pool, drawn flat */
+.ffc { background: #08090b; }
+.ffc-card { background: color-mix(in srgb, var(--team) 55%, #050506); box-shadow: none; }
+.ffc-pool { background: none; }
+/* Numbers line up; a bone white instead of a yellow cream for the base text */
+.ff.skin-relay { --ff-ink: #ececec; font-variant-numeric: tabular-nums; }
+/* Phone tab bar: opaque, no blur */
+@media (max-width: 620px) { .skin-card .ff-tabs { -webkit-backdrop-filter: none; backdrop-filter: none; background: color-mix(in srgb, var(--ff-ink) 8%, var(--ff-page)); border: 0; } }
