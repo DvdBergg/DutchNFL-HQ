@@ -1684,7 +1684,7 @@ window.dash = (() => {
       stat('Position rank', p.pos_rank == null ? '—' : String(p.pos_rank)),
       stat('Average points', p.espn_avg == null ? '—' : d3.format('.1f')(p.espn_avg)),
       stat('% rostered', p.rost_pct == null ? '—' : d3.format('.1f')(p.rost_pct), p.rost_chg == null ? '' : ' (' + (p.rost_chg >= 0 ? '+' : '') + d3.format('.1f')(p.rost_chg) + ')'),
-      stat('ESPN proj, Wk 8', p.proj == null ? '—' : d3.format('.1f')(p.proj)));
+      stat('ESPN proj, Wk 9', p.proj == null ? '—' : d3.format('.1f')(p.proj)));
     card.append(art, mid, right);
     el.replaceChildren(card);
   });
