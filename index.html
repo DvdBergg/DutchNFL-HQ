@@ -816,8 +816,8 @@ window.dash = (() => {
   <header class="ff-top">
     <div class="ff-brand"><span class="ff-mark">FF</span><span>Fantasy Football</span></div>
     <nav class="ff-tabs" role="tablist" aria-label="Pages">
-      <button type="button" class="ff-tab" role="tab" data-tab="team" aria-selected="true" id="tab-team"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span class="ff-tab-l">Team news</span><span class="ff-tab-s">Team</span></button>
-      <button type="button" class="ff-tab" role="tab" data-tab="transfers" aria-selected="false" id="tab-transfers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg><span class="ff-tab-l">Transfer news</span><span class="ff-tab-s">Transfers</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="team" aria-selected="true" id="tab-team"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span class="ff-tab-l">Team</span><span class="ff-tab-s">Team</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="transfers" aria-selected="false" id="tab-transfers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg><span class="ff-tab-l">News</span><span class="ff-tab-s">News</span></button>
       <button type="button" class="ff-tab" role="tab" data-tab="waivers" aria-selected="false" id="tab-waivers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="ff-tab-l">Waivers</span><span class="ff-tab-s">Waivers</span></button>
       <button type="button" class="ff-tab" role="tab" data-tab="league" aria-selected="false" id="tab-league"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.5 4.5 3 5M17 6h3c0 3-1.5 4.5-3 5M10 14h4l1 4H9zM8 20h8"/></svg><span class="ff-tab-l">League</span><span class="ff-tab-s">League</span></button>
     </nav>
@@ -853,6 +853,148 @@ window.dash = (() => {
   </nav>
 
   <section class="ff-page" data-page="team" id="team" aria-labelledby="tab-team">
+    <div class="ff-section ff-carousel-sec" id="ff-carousel">
+      <h2 class="ff-h2">Players</h2>
+      <p class="ff-note">Drag to spin the ring, or use the arrow keys. The player who stops in front opens below; click any card to jump to him.</p>
+      <div class="ff-filters ffc-groups">
+        <button type="button" class="ff-chip ffc-group" data-ring="Starter" aria-pressed="true">Starting lineup</button>
+        <button type="button" class="ff-chip ffc-group" data-ring="Bench" aria-pressed="false">Bench</button>
+        <button type="button" class="ff-chip ffc-group" data-ring="IR" aria-pressed="false">IR</button>
+        <button type="button" class="ff-chip ffc-group" data-ring="all" aria-pressed="false">All</button>
+      </div>
+      <div class="ffc" data-draw="carousel" data-source="roster stats" tabindex="0" aria-label="Player carousel: drag or use arrow keys to spin"></div>
+      <div class="ff-player" id="ff-player" hidden>
+        <div class="ff-player-top">
+          <div class="ff-player-head" data-draw="pl-head" data-source="roster stats">—</div>
+          <button type="button" class="ff-player-close" aria-label="Close player card">Close <svg class="ff-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <h3 class="ff-h3">Season stats</h3>
+        <div class="ff-pl-stats" data-draw="pl-stats" data-source="stats">—</div>
+        <h3 class="ff-h3">ESPN projected vs. actual points</h3>
+        <div class="ff-pl-proj" data-draw="pl-proj" data-source="projections">—</div>
+        <h3 class="ff-h3" data-inj-head>Injury timeline</h3>
+        <div class="ff-pl-inj" data-draw="pl-injury" data-source="injuries">—</div>
+        <h3 class="ff-h3">Schedule</h3>
+        <div class="ff-pl-sched" data-draw="pl-sched" data-source="schedule">—</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ff-page" data-page="waivers" id="waivers" aria-labelledby="tab-waivers" hidden>
+    <div class="ff-hero">
+      <h1 class="ff-title">Waiver Wire</h1>
+      <p class="ff-sub">Pickups, handcuffs and drop candidates for the team you're viewing · from public waiver columns, filtered against this roster</p>
+      <p class="ff-note" style="margin:10px 0 0">These columns don't know your league. Send Claude a screenshot of your ESPN free-agent list and only players actually available to you will be recommended.</p>
+    </div>
+    <div class="ff-section" id="ff-handcuffs">
+      <h2 class="ff-h2">Handcuff watch</h2>
+      <p class="ff-note">The backups behind this team's key players. If the starter gets hurt, his backup jumps up here with a flag.</p>
+      <div class="ff-wv-grid" data-draw="handcuffs" data-source="waivers roster injuries">—</div>
+    </div>
+    <div class="ff-section" id="ff-pickups">
+      <h2 class="ff-h2">Top pickups</h2>
+      <p class="ff-note">Players not on this roster, ranked by priority. "Replaces" points to this team's weakest bench player at that position.</p>
+      <div class="ff-filters">
+        <button type="button" class="ff-chip ff-wchip" data-wpos="all" aria-pressed="true">All</button>
+        <button type="button" class="ff-chip ff-wchip" data-wpos="QB" aria-pressed="false">QB</button>
+        <button type="button" class="ff-chip ff-wchip" data-wpos="RB" aria-pressed="false">RB</button>
+        <button type="button" class="ff-chip ff-wchip" data-wpos="WR" aria-pressed="false">WR</button>
+        <button type="button" class="ff-chip ff-wchip" data-wpos="TE" aria-pressed="false">TE</button>
+        <button type="button" class="ff-chip ff-wchip" data-wpos="K" aria-pressed="false">K</button>
+        <button type="button" class="ff-chip ff-wchip" data-wpos="D/ST" aria-pressed="false">D/ST</button>
+      </div>
+      <div class="ff-feedmode" role="group" aria-label="Pickups view">
+        <button type="button" class="ff-chip ff-vm" data-vparam="wview" data-view="slides" aria-pressed="true">Slideshow</button>
+        <button type="button" class="ff-chip ff-vm" data-vparam="wview" data-view="list" aria-pressed="false">See all</button>
+      </div>
+      <div data-draw="pickups" data-source="waivers roster">—</div>
+    </div>
+    <div class="ff-section" id="ff-drops">
+      <details class="ff-fold"><summary class="ff-fold-sum"><span class="ff-fold-head"><h2 class="ff-h2">Drop candidates</h2><span class="ff-fold-line">Bench players you could cut for a pickup</span></span><span class="ff-fold-chev" aria-hidden="true"></span></summary>
+      <p class="ff-note">The weakest spots on this bench: injuries, byes and low scoring. Release one of these to make room for a pickup.</p>
+      <div class="ff-wv-grid" data-draw="drops" data-source="roster injuries">—</div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ff-page" data-page="league" id="league" aria-labelledby="tab-league" hidden>
+    <div class="ff-hero lg-hero">
+      <div class="lg-trophy" aria-hidden="true"><svg viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lgCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e7bf"/><stop offset=".45" stop-color="#d3bc8d"/><stop offset="1" stop-color="#7a6336"/></linearGradient><linearGradient id="lgBase" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2a2a2e"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><path d="M34 14h72v34c0 26-16 44-36 44S34 74 34 48z" fill="url(#lgCup)"/><path d="M34 22H18c0 22 10 34 20 36M106 22h16c0 22-10 34-20 36" fill="none" stroke="url(#lgCup)" stroke-width="7" stroke-linecap="round"/><path d="M60 92h20l4 22H56z" fill="url(#lgCup)"/><rect x="40" y="114" width="60" height="10" rx="3" fill="url(#lgCup)"/><rect x="30" y="124" width="80" height="34" rx="5" fill="url(#lgBase)" stroke="#d3bc8d" stroke-opacity=".5"/><rect x="44" y="134" width="52" height="12" rx="2" fill="#d3bc8d" opacity=".85"/><path d="M48 24c2 18 8 30 18 36" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/></svg></div>
+      <h1 class="ff-title">League</h1>
+      <p class="ff-sub">Standings, side pots and rules from the league spreadsheet · <span data-draw="lg-through" data-source="league_weeks">—</span></p>
+      <div class="lg-snap-row">
+        <button type="button" class="ff-theme lg-snap-btn" aria-label="Save the League page as an image">
+          <span class="lg-snap-idle"><svg class="ff-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Save as image</span>
+          <span class="lg-snap-busy" hidden><svg class="ff-ico lg-spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/></svg>Making image…</span>
+        </button>
+      </div>
+      <div class="ff-tiles">
+        <div class="ff-tile alert lg-shot-only"><span class="ff-tile-label">Leader</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="leader">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="leader-sub">—</span></div>
+        <div class="ff-tile lg-shot-only"><span class="ff-tile-label">Season high</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_weeks" data-field="high">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_weeks" data-field="high-sub">—</span></div>
+        <div class="ff-tile lg-live"><span class="ff-tile-label">Your record</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="record">—</span></div>
+        <div class="ff-tile alert lg-live"><span class="ff-tile-label">Your rank</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="rank">—</span></div>
+        <div class="ff-tile"><span class="ff-tile-label">Guillotine alive</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="alive">—</span></div>
+        <div class="ff-tile"><span class="ff-tile-label">Prize pool</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_awards league_managers" data-field="pool">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_awards league_managers" data-field="pool-split">—</span></div>
+      </div>
+      <div class="lg-week lg-shot-only">
+        <span class="lg-week-k">Week <span data-draw="lg-tile" data-source="league_weeks" data-field="wk">—</span> in short</span>
+        <div class="lg-week-grid">
+          <div class="lg-week-i"><span>Top score</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wtop">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wtop-pts">—</i></div>
+          <div class="lg-week-i"><span>Lowest score</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wlow">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wlow-pts">—</i></div>
+          <div class="lg-week-i"><span>Guillotine cut</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wcut">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wcut-pts">—</i></div>
+          <div class="lg-week-i"><span>League median</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wmed">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wmed-pts">—</i></div>
+        </div>
+      </div>
+    </div>
+    <div class="ff-section" id="lg-prizes">
+      <h2 class="ff-h2">Prize race</h2>
+      <p class="ff-note">Who holds each pot right now.<span class="lg-live"> The four teams on this dashboard wear their colors.</span></p>
+      <div class="lg-prizes" data-draw="lg-prizes" data-source="league_awards league_managers league_weeks roster stats">—</div>
+    </div>
+    <div class="ff-section" id="lg-race">
+      <h2 class="ff-h2">Season race</h2>
+      <p class="ff-note">Every manager's season, week by week.<span class="lg-live"> Hover or tap a line or dot for the numbers; pick a manager below to follow them.</span><span class="lg-shot-only"> The leader is highlighted.</span></p>
+      <div class="ff-filters lg-views" role="group" aria-label="Chart">
+        <button type="button" class="ff-chip lg-view" data-lgchart="rank" aria-pressed="true">Rank race</button>
+        <button type="button" class="ff-chip lg-view" data-lgchart="points" aria-pressed="false">Points vs average</button>
+        <button type="button" class="ff-chip lg-view" data-lgchart="weekly" aria-pressed="false">Weekly scores</button>
+      </div>
+      <div class="lg-race" data-draw="lg-race" data-source="league_weeks league_managers">—</div>
+      <div class="lg-legend" data-draw="lg-legend" data-source="league_weeks league_managers">—</div>
+    </div>
+    <div class="ff-section" id="lg-standings">
+      <h2 class="ff-h2">Beat the Median standings</h2>
+      <p class="ff-note">Every week counts twice: your matchup, and your score against the league median. The best combined record after the regular season wins $100.</p>
+      <div class="br" data-draw="lg-btm-race" data-source="league_managers league_weeks">—</div>
+      <div class="ff-table-wrap lg-wrap" data-draw="lg-standings" data-source="league_managers league_weeks">—</div>
+    </div>
+    <div class="ff-section" id="lg-weekly">
+      <details class="ff-fold"><summary class="ff-fold-sum"><span class="ff-fold-head"><h2 class="ff-h2">Weekly scores</h2><span class="ff-fold-line">All 12 managers, week by week</span></span><span class="ff-fold-chev" aria-hidden="true"></span></summary>
+      <p class="ff-note">Green beat that week's median, dim fell short. The crown marks the week's top score; a struck-out score is that week's Guillotine elimination.</p>
+      <div class="ff-table-wrap lg-wrap" data-draw="lg-weekly" data-source="league_managers league_weeks">—</div>
+      </details>
+    </div>
+    <div class="ff-section" id="lg-guillotine">
+      <h2 class="ff-h2">Guillotine</h2>
+      <p class="ff-note">The lowest score each week is out of the Guillotine (not the league). Last team standing wins $50. Survivors are sorted by danger: the lowest average among them is next in line.</p>
+      <div data-draw="lg-guillotine" data-source="league_managers league_weeks">—</div>
+    </div>
+    <div class="ff-section" id="lg-rules">
+      <details class="ff-fold"><summary class="ff-fold-sum"><span class="ff-fold-head"><h2 class="ff-h2">League rules</h2><span class="ff-fold-line">Prizes, Beat the Median, Guillotine, draft and dues</span></span><span class="ff-fold-chev" aria-hidden="true"></span></summary>
+      <div class="lg-rules">
+        <div class="lg-rule"><b>Champion and runner-up</b><span class="lg-amt">$220 + shirt · $100</span><p>Decided through the fantasy playoffs at the end of the regular season.</p></div>
+        <div class="lg-rule"><b>Beat the Median</b><span class="lg-amt">$100</span><p>Each week you play your matchup and the league median. Beat the median for an extra win, fall below it for an extra loss. Win your matchup and beat the median: 2-0. Lose the matchup but beat the median: 1-1. Best record at the end of the regular season wins.</p></div>
+        <div class="lg-rule"><b>Guillotine</b><span class="lg-amt">$50</span><p>The lowest-scoring team each week is eliminated from the Guillotine. You keep playing in the league for the championship. The last team remaining wins.</p></div>
+        <div class="lg-rule"><b>Highest weekly team score</b><span class="lg-amt">$50</span><p>The single biggest team score of the regular season. Only one week matters.</p></div>
+        <div class="lg-rule"><b>Highest individual player score</b><span class="lg-amt">$50</span><p>The manager whose player posts the highest fantasy total in a single game wins. Example: Ja'Marr Chase scores 47.8 in Week 9 and nobody beats it all season.</p></div>
+        <div class="lg-rule"><b>Draft and dues</b><span class="lg-amt">$50 each · all 12 paid</span><p>Draft was August 1 at 8:00 AM EST (14:00 CET) with a 10-hour clock. Every manager has paid the $50 entry.</p></div>
+      </div>
+      <p class="ff-note lg-src">From the DutchNFL league spreadsheet (General Info and Scoreboard tabs). Send Claude a fresh copy after each week to update this page.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="ff-page" data-page="transfers" id="transfers" aria-labelledby="tab-transfers" hidden>
     <div class="ff-hero" id="ff-hero-dennis" data-team-view="Dennis">
       <h1 class="ff-title">Dennis · Gunners</h1>
       <p class="ff-sub">Week 9 · news on your players plus the teammates and opponents that move their value · times in Amsterdam time</p>
@@ -998,32 +1140,6 @@ window.dash = (() => {
       <div class="ff-impact-strip" data-draw="impact-top" data-source="news roster">—</div>
     </div>
 
-    <div class="ff-section ff-carousel-sec" id="ff-carousel">
-      <h2 class="ff-h2">Players</h2>
-      <p class="ff-note">Drag to spin the ring, or use the arrow keys. The player who stops in front opens below; click any card to jump to him.</p>
-      <div class="ff-filters ffc-groups">
-        <button type="button" class="ff-chip ffc-group" data-ring="Starter" aria-pressed="true">Starting lineup</button>
-        <button type="button" class="ff-chip ffc-group" data-ring="Bench" aria-pressed="false">Bench</button>
-        <button type="button" class="ff-chip ffc-group" data-ring="IR" aria-pressed="false">IR</button>
-        <button type="button" class="ff-chip ffc-group" data-ring="all" aria-pressed="false">All</button>
-      </div>
-      <div class="ffc" data-draw="carousel" data-source="roster stats" tabindex="0" aria-label="Player carousel: drag or use arrow keys to spin"></div>
-      <div class="ff-player" id="ff-player" hidden>
-        <div class="ff-player-top">
-          <div class="ff-player-head" data-draw="pl-head" data-source="roster stats">—</div>
-          <button type="button" class="ff-player-close" aria-label="Close player card">Close <svg class="ff-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-        </div>
-        <h3 class="ff-h3">Season stats</h3>
-        <div class="ff-pl-stats" data-draw="pl-stats" data-source="stats">—</div>
-        <h3 class="ff-h3">ESPN projected vs. actual points</h3>
-        <div class="ff-pl-proj" data-draw="pl-proj" data-source="projections">—</div>
-        <h3 class="ff-h3" data-inj-head>Injury timeline</h3>
-        <div class="ff-pl-inj" data-draw="pl-injury" data-source="injuries">—</div>
-        <h3 class="ff-h3">Schedule</h3>
-        <div class="ff-pl-sched" data-draw="pl-sched" data-source="schedule">—</div>
-      </div>
-    </div>
-
     <div class="ff-plate" aria-hidden="true">
       <div class="ff-plate-bar"><span class="ff-plate-text">Every update, routed to your lineup</span></div>
       <div class="ff-plate-mark">FF</div>
@@ -1083,125 +1199,9 @@ window.dash = (() => {
         </div>
       </section>
     </div>
-  </section>
 
-  <section class="ff-page" data-page="waivers" id="waivers" aria-labelledby="tab-waivers" hidden>
     <div class="ff-hero">
-      <h1 class="ff-title">Waiver Wire</h1>
-      <p class="ff-sub">Pickups, handcuffs and drop candidates for the team you're viewing · from public waiver columns, filtered against this roster</p>
-      <p class="ff-note" style="margin:10px 0 0">These columns don't know your league. Send Claude a screenshot of your ESPN free-agent list and only players actually available to you will be recommended.</p>
-    </div>
-    <div class="ff-section" id="ff-handcuffs">
-      <h2 class="ff-h2">Handcuff watch</h2>
-      <p class="ff-note">The backups behind this team's key players. If the starter gets hurt, his backup jumps up here with a flag.</p>
-      <div class="ff-wv-grid" data-draw="handcuffs" data-source="waivers roster injuries">—</div>
-    </div>
-    <div class="ff-section" id="ff-pickups">
-      <h2 class="ff-h2">Top pickups</h2>
-      <p class="ff-note">Players not on this roster, ranked by priority. "Replaces" points to this team's weakest bench player at that position.</p>
-      <div class="ff-filters">
-        <button type="button" class="ff-chip ff-wchip" data-wpos="all" aria-pressed="true">All</button>
-        <button type="button" class="ff-chip ff-wchip" data-wpos="QB" aria-pressed="false">QB</button>
-        <button type="button" class="ff-chip ff-wchip" data-wpos="RB" aria-pressed="false">RB</button>
-        <button type="button" class="ff-chip ff-wchip" data-wpos="WR" aria-pressed="false">WR</button>
-        <button type="button" class="ff-chip ff-wchip" data-wpos="TE" aria-pressed="false">TE</button>
-        <button type="button" class="ff-chip ff-wchip" data-wpos="K" aria-pressed="false">K</button>
-        <button type="button" class="ff-chip ff-wchip" data-wpos="D/ST" aria-pressed="false">D/ST</button>
-      </div>
-      <div class="ff-feedmode" role="group" aria-label="Pickups view">
-        <button type="button" class="ff-chip ff-vm" data-vparam="wview" data-view="slides" aria-pressed="true">Slideshow</button>
-        <button type="button" class="ff-chip ff-vm" data-vparam="wview" data-view="list" aria-pressed="false">See all</button>
-      </div>
-      <div data-draw="pickups" data-source="waivers roster">—</div>
-    </div>
-    <div class="ff-section" id="ff-drops">
-      <details class="ff-fold"><summary class="ff-fold-sum"><span class="ff-fold-head"><h2 class="ff-h2">Drop candidates</h2><span class="ff-fold-line">Bench players you could cut for a pickup</span></span><span class="ff-fold-chev" aria-hidden="true"></span></summary>
-      <p class="ff-note">The weakest spots on this bench: injuries, byes and low scoring. Release one of these to make room for a pickup.</p>
-      <div class="ff-wv-grid" data-draw="drops" data-source="roster injuries">—</div>
-      </details>
-    </div>
-  </section>
-
-  <section class="ff-page" data-page="league" id="league" aria-labelledby="tab-league" hidden>
-    <div class="ff-hero lg-hero">
-      <div class="lg-trophy" aria-hidden="true"><svg viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lgCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e7bf"/><stop offset=".45" stop-color="#d3bc8d"/><stop offset="1" stop-color="#7a6336"/></linearGradient><linearGradient id="lgBase" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2a2a2e"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><path d="M34 14h72v34c0 26-16 44-36 44S34 74 34 48z" fill="url(#lgCup)"/><path d="M34 22H18c0 22 10 34 20 36M106 22h16c0 22-10 34-20 36" fill="none" stroke="url(#lgCup)" stroke-width="7" stroke-linecap="round"/><path d="M60 92h20l4 22H56z" fill="url(#lgCup)"/><rect x="40" y="114" width="60" height="10" rx="3" fill="url(#lgCup)"/><rect x="30" y="124" width="80" height="34" rx="5" fill="url(#lgBase)" stroke="#d3bc8d" stroke-opacity=".5"/><rect x="44" y="134" width="52" height="12" rx="2" fill="#d3bc8d" opacity=".85"/><path d="M48 24c2 18 8 30 18 36" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/></svg></div>
-      <h1 class="ff-title">League</h1>
-      <p class="ff-sub">Standings, side pots and rules from the league spreadsheet · <span data-draw="lg-through" data-source="league_weeks">—</span></p>
-      <div class="lg-snap-row">
-        <button type="button" class="ff-theme lg-snap-btn" aria-label="Save the League page as an image">
-          <span class="lg-snap-idle"><svg class="ff-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Save as image</span>
-          <span class="lg-snap-busy" hidden><svg class="ff-ico lg-spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/></svg>Making image…</span>
-        </button>
-      </div>
-      <div class="ff-tiles">
-        <div class="ff-tile alert lg-shot-only"><span class="ff-tile-label">Leader</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="leader">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="leader-sub">—</span></div>
-        <div class="ff-tile lg-shot-only"><span class="ff-tile-label">Season high</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_weeks" data-field="high">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_weeks" data-field="high-sub">—</span></div>
-        <div class="ff-tile lg-live"><span class="ff-tile-label">Your record</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="record">—</span></div>
-        <div class="ff-tile alert lg-live"><span class="ff-tile-label">Your rank</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="rank">—</span></div>
-        <div class="ff-tile"><span class="ff-tile-label">Guillotine alive</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="alive">—</span></div>
-        <div class="ff-tile"><span class="ff-tile-label">Prize pool</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_awards league_managers" data-field="pool">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_awards league_managers" data-field="pool-split">—</span></div>
-      </div>
-      <div class="lg-week lg-shot-only">
-        <span class="lg-week-k">Week <span data-draw="lg-tile" data-source="league_weeks" data-field="wk">—</span> in short</span>
-        <div class="lg-week-grid">
-          <div class="lg-week-i"><span>Top score</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wtop">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wtop-pts">—</i></div>
-          <div class="lg-week-i"><span>Lowest score</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wlow">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wlow-pts">—</i></div>
-          <div class="lg-week-i"><span>Guillotine cut</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wcut">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wcut-pts">—</i></div>
-          <div class="lg-week-i"><span>League median</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wmed">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wmed-pts">—</i></div>
-        </div>
-      </div>
-    </div>
-    <div class="ff-section" id="lg-prizes">
-      <h2 class="ff-h2">Prize race</h2>
-      <p class="ff-note">Who holds each pot right now.<span class="lg-live"> The four teams on this dashboard wear their colors.</span></p>
-      <div class="lg-prizes" data-draw="lg-prizes" data-source="league_awards league_managers league_weeks roster stats">—</div>
-    </div>
-    <div class="ff-section" id="lg-race">
-      <h2 class="ff-h2">Season race</h2>
-      <p class="ff-note">Every manager's season, week by week.<span class="lg-live"> Hover or tap a line or dot for the numbers; pick a manager below to follow them.</span><span class="lg-shot-only"> The leader is highlighted.</span></p>
-      <div class="ff-filters lg-views" role="group" aria-label="Chart">
-        <button type="button" class="ff-chip lg-view" data-lgchart="rank" aria-pressed="true">Rank race</button>
-        <button type="button" class="ff-chip lg-view" data-lgchart="points" aria-pressed="false">Points vs average</button>
-        <button type="button" class="ff-chip lg-view" data-lgchart="weekly" aria-pressed="false">Weekly scores</button>
-      </div>
-      <div class="lg-race" data-draw="lg-race" data-source="league_weeks league_managers">—</div>
-      <div class="lg-legend" data-draw="lg-legend" data-source="league_weeks league_managers">—</div>
-    </div>
-    <div class="ff-section" id="lg-standings">
-      <h2 class="ff-h2">Beat the Median standings</h2>
-      <p class="ff-note">Every week counts twice: your matchup, and your score against the league median. The best combined record after the regular season wins $100.</p>
-      <div class="br" data-draw="lg-btm-race" data-source="league_managers league_weeks">—</div>
-      <div class="ff-table-wrap lg-wrap" data-draw="lg-standings" data-source="league_managers league_weeks">—</div>
-    </div>
-    <div class="ff-section" id="lg-weekly">
-      <details class="ff-fold"><summary class="ff-fold-sum"><span class="ff-fold-head"><h2 class="ff-h2">Weekly scores</h2><span class="ff-fold-line">All 12 managers, week by week</span></span><span class="ff-fold-chev" aria-hidden="true"></span></summary>
-      <p class="ff-note">Green beat that week's median, dim fell short. The crown marks the week's top score; a struck-out score is that week's Guillotine elimination.</p>
-      <div class="ff-table-wrap lg-wrap" data-draw="lg-weekly" data-source="league_managers league_weeks">—</div>
-      </details>
-    </div>
-    <div class="ff-section" id="lg-guillotine">
-      <h2 class="ff-h2">Guillotine</h2>
-      <p class="ff-note">The lowest score each week is out of the Guillotine (not the league). Last team standing wins $50. Survivors are sorted by danger: the lowest average among them is next in line.</p>
-      <div data-draw="lg-guillotine" data-source="league_managers league_weeks">—</div>
-    </div>
-    <div class="ff-section" id="lg-rules">
-      <details class="ff-fold"><summary class="ff-fold-sum"><span class="ff-fold-head"><h2 class="ff-h2">League rules</h2><span class="ff-fold-line">Prizes, Beat the Median, Guillotine, draft and dues</span></span><span class="ff-fold-chev" aria-hidden="true"></span></summary>
-      <div class="lg-rules">
-        <div class="lg-rule"><b>Champion and runner-up</b><span class="lg-amt">$220 + shirt · $100</span><p>Decided through the fantasy playoffs at the end of the regular season.</p></div>
-        <div class="lg-rule"><b>Beat the Median</b><span class="lg-amt">$100</span><p>Each week you play your matchup and the league median. Beat the median for an extra win, fall below it for an extra loss. Win your matchup and beat the median: 2-0. Lose the matchup but beat the median: 1-1. Best record at the end of the regular season wins.</p></div>
-        <div class="lg-rule"><b>Guillotine</b><span class="lg-amt">$50</span><p>The lowest-scoring team each week is eliminated from the Guillotine. You keep playing in the league for the championship. The last team remaining wins.</p></div>
-        <div class="lg-rule"><b>Highest weekly team score</b><span class="lg-amt">$50</span><p>The single biggest team score of the regular season. Only one week matters.</p></div>
-        <div class="lg-rule"><b>Highest individual player score</b><span class="lg-amt">$50</span><p>The manager whose player posts the highest fantasy total in a single game wins. Example: Ja'Marr Chase scores 47.8 in Week 9 and nobody beats it all season.</p></div>
-        <div class="lg-rule"><b>Draft and dues</b><span class="lg-amt">$50 each · all 12 paid</span><p>Draft was August 1 at 8:00 AM EST (14:00 CET) with a 10-hour clock. Every manager has paid the $50 entry.</p></div>
-      </div>
-      <p class="ff-note lg-src">From the DutchNFL league spreadsheet (General Info and Scoreboard tabs). Send Claude a fresh copy after each week to update this page.</p>
-      </details>
-    </div>
-  </section>
-
-  <section class="ff-page" data-page="transfers" id="transfers" aria-labelledby="tab-transfers" hidden>
-    <div class="ff-hero">
-      <h1 class="ff-title">Transfer News</h1>
+      <h1 class="ff-title">Transfers</h1>
       <p class="ff-sub">Trades, signings and deadline reports around the league, led by Adam Schefter's scoops · flagged where they touch your roster</p>
       <div class="ff-tiles">
         <div class="ff-tile blue"><span class="ff-tile-label">Trades completed</span><span class="ff-tile-value" data-draw="tsum" data-source="transfer_summary" data-row="0" data-field="trades">—</span></div>
@@ -1610,7 +1610,7 @@ window.dash = (() => {
       const tdP = mk('td'); tdP.append(name);
       tr.append(mk('td', 'ff-slot', p.slot), tdP, opp, mk('td', 'num', p.proj == null ? '--' : d3.format('.1f')(p.proj)), tdN);
       tr.onclick = () => {
-        dash.setParams({player: picked === p.player ? null : p.player, group: null});
+        const np = {player: picked === p.player ? null : p.player, group: null}; if (picked !== p.player) np.tab = null; dash.setParams(np);
         if (picked !== p.player) setTimeout(() => { const c = document.getElementById('ff-player'); if (c) c.scrollIntoView({behavior: 'smooth', block: 'nearest'}); }, 60);
       };
       out.push(tr);
