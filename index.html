@@ -471,69 +471,9 @@ window.dash = (() => {
 
 
   /* Team colors: Wesley in Bills blue and red, Gevers in Seahawks navy and green; Dennis and Carlier stay Saints black and gold */
-  .ff.skin-relay.team-wesley {
-    --ff-page: #030a1c; --ff-bg: rgba(0,51,141,.16); --ff-ink: #f2f5fb; --ff-ink-2: #b7c2d8; --ff-muted: #7d8aa6; --ff-line: rgba(70,120,230,.22); --ff-line-2: rgba(255,255,255,.06);
-    --ff-soft: rgba(0,51,141,.20); --ff-hover: rgba(232,51,74,.08); --ff-th: #7d8aa6;
-    --ff-lime: #e8334a; --ff-accent: #e8334a; --ff-blue: #7fa6ff; --ff-blue-soft: rgba(70,120,230,.18); --ff-red: #e8334a; --ff-green: #7fa6ff; --ff-green-soft: rgba(70,120,230,.18);
-    --ff-pill-bg: #e8334a; --ff-pill-ink: #ffffff; --ff-on-accent: #ffffff;
-    --ff-shadow: 0 0 0 1px rgba(70,120,230,.14), 0 20px 60px rgba(0,0,0,.55);
-  }
-  .ff.skin-relay.team-wesley:not(.dark) {
-    --ff-page: #eef2fa; --ff-bg: rgba(255,255,255,.8); --ff-ink: #0b1630; --ff-ink-2: #34405c; --ff-muted: #67728c; --ff-line: rgba(0,51,141,.16); --ff-soft: rgba(0,51,141,.06); --ff-th: #67728c;
-    --ff-lime: #c60c30; --ff-accent: #c60c30; --ff-blue: #00338d; --ff-blue-soft: rgba(0,51,141,.10); --ff-red: #c60c30; --ff-green: #00338d; --ff-green-soft: rgba(0,51,141,.10);
-    --ff-pill-bg: #00338d; --ff-pill-ink: #ffffff;
-  }
-  .ff.skin-relay.team-gevers {
-    --ff-page: #010811; --ff-bg: rgba(0,34,68,.30); --ff-ink: #eef3f6; --ff-ink-2: #b4bec6; --ff-muted: #8a959e; --ff-line: rgba(105,190,40,.16); --ff-line-2: rgba(255,255,255,.06);
-    --ff-soft: rgba(165,172,175,.08); --ff-hover: rgba(105,190,40,.08); --ff-th: #8a959e;
-    --ff-lime: #69be28; --ff-accent: #69be28; --ff-blue: #a5acaf; --ff-blue-soft: rgba(165,172,175,.14); --ff-red: #69be28; --ff-green: #69be28; --ff-green-soft: rgba(105,190,40,.14);
-    --ff-pill-bg: #69be28; --ff-pill-ink: #002244; --ff-on-accent: #002244;
-    --ff-shadow: 0 0 0 1px rgba(105,190,40,.10), 0 20px 60px rgba(0,0,0,.55);
-  }
-  .ff.skin-relay.team-gevers:not(.dark) {
-    --ff-page: #eef2f4; --ff-bg: rgba(255,255,255,.8); --ff-ink: #00182f; --ff-ink-2: #34465a; --ff-muted: #687886; --ff-line: rgba(0,34,68,.14); --ff-soft: rgba(0,34,68,.05); --ff-th: #687886;
-    --ff-lime: #3f8a12; --ff-accent: #3f8a12; --ff-blue: #002244; --ff-blue-soft: rgba(0,34,68,.08); --ff-red: #3f8a12; --ff-green: #3f8a12; --ff-green-soft: rgba(105,190,40,.14);
-    --ff-pill-bg: #002244; --ff-pill-ink: #69be28;
-  }
   /* Darryl (Kelce Ya Later): Chiefs red and gold */
-  .ff.skin-relay.team-darryl {
-    --ff-page: #120305; --ff-bg: rgba(227,24,55,.12); --ff-ink: #fbf3f3; --ff-ink-2: #d9c2c4; --ff-muted: #a58a8d; --ff-line: rgba(255,184,28,.18); --ff-line-2: rgba(255,255,255,.06);
-    --ff-soft: rgba(227,24,55,.14); --ff-hover: rgba(255,184,28,.08); --ff-th: #a58a8d;
-    --ff-lime: #ffb81c; --ff-accent: #ffb81c; --ff-blue: #ff5a6e; --ff-blue-soft: rgba(227,24,55,.18); --ff-red: #e31837; --ff-green: #ffb81c; --ff-green-soft: rgba(255,184,28,.14);
-    --ff-pill-bg: #e31837; --ff-pill-ink: #ffffff; --ff-on-accent: #3a0a10;
-    --ff-shadow: 0 0 0 1px rgba(255,184,28,.10), 0 20px 60px rgba(0,0,0,.55);
-  }
-  .ff.skin-relay.team-darryl:not(.dark) {
-    --ff-page: #fbf1f1; --ff-bg: rgba(255,255,255,.82); --ff-ink: #2a070c; --ff-ink-2: #5a2a30; --ff-muted: #86585d; --ff-line: rgba(227,24,55,.16); --ff-soft: rgba(227,24,55,.06); --ff-th: #86585d;
-    --ff-lime: #c8102e; --ff-accent: #c8102e; --ff-blue: #c8102e; --ff-blue-soft: rgba(227,24,55,.10); --ff-red: #c8102e; --ff-green: #b07a00; --ff-green-soft: rgba(255,184,28,.16);
-    --ff-pill-bg: #e31837; --ff-pill-ink: #ffffff;
-  }
   /* Eric-Jan (Poldervogels): 49ers red and gold */
-  .ff.skin-relay.team-eric-jan {
-    --ff-page: #110303; --ff-bg: rgba(170,0,0,.13); --ff-ink: #fbf5f2; --ff-ink-2: #dbc9bf; --ff-muted: #a8928a; --ff-line: rgba(179,153,93,.20); --ff-line-2: rgba(255,255,255,.06);
-    --ff-soft: rgba(170,0,0,.15); --ff-hover: rgba(179,153,93,.08); --ff-th: #a8928a;
-    --ff-lime: #c9ab6a; --ff-accent: #c9ab6a; --ff-blue: #e05050; --ff-blue-soft: rgba(170,0,0,.18); --ff-red: #aa0000; --ff-green: #c9ab6a; --ff-green-soft: rgba(179,153,93,.14);
-    --ff-pill-bg: #aa0000; --ff-pill-ink: #ffffff; --ff-on-accent: #2a0606;
-    --ff-shadow: 0 0 0 1px rgba(179,153,93,.10), 0 20px 60px rgba(0,0,0,.55);
-  }
-  .ff.skin-relay.team-eric-jan:not(.dark) {
-    --ff-page: #faf3ef; --ff-bg: rgba(255,255,255,.82); --ff-ink: #2a0606; --ff-ink-2: #5b2d26; --ff-muted: #876058; --ff-line: rgba(170,0,0,.16); --ff-soft: rgba(170,0,0,.06); --ff-th: #876058;
-    --ff-lime: #aa0000; --ff-accent: #aa0000; --ff-blue: #aa0000; --ff-blue-soft: rgba(170,0,0,.10); --ff-red: #aa0000; --ff-green: #8a6f2e; --ff-green-soft: rgba(179,153,93,.18);
-    --ff-pill-bg: #aa0000; --ff-pill-ink: #ffffff;
-  }
   /* Connor (CeeDee's Nuts): Patriots navy, red and silver */
-  .ff.skin-relay.team-connor {
-    --ff-page: #020b17; --ff-bg: rgba(0,34,68,.30); --ff-ink: #f3f6f9; --ff-ink-2: #c9d1d9; --ff-muted: #8d98a5; --ff-line: rgba(176,183,188,.20); --ff-line-2: rgba(255,255,255,.06);
-    --ff-soft: rgba(0,34,68,.35); --ff-hover: rgba(176,183,188,.08); --ff-th: #8d98a5;
-    --ff-lime: #c8ced3; --ff-accent: #c8ced3; --ff-blue: #ff4d6a; --ff-blue-soft: rgba(198,12,48,.18); --ff-red: #c60c30; --ff-green: #c8ced3; --ff-green-soft: rgba(176,183,188,.14);
-    --ff-pill-bg: #c60c30; --ff-pill-ink: #ffffff; --ff-on-accent: #001224;
-    --ff-shadow: 0 0 0 1px rgba(176,183,188,.10), 0 20px 60px rgba(0,0,0,.55);
-  }
-  .ff.skin-relay.team-connor:not(.dark) {
-    --ff-page: #f2f5f9; --ff-bg: rgba(255,255,255,.85); --ff-ink: #001a33; --ff-ink-2: #2b3f55; --ff-muted: #5d6f82; --ff-line: rgba(0,34,68,.14); --ff-soft: rgba(0,34,68,.05); --ff-th: #5d6f82;
-    --ff-lime: #c60c30; --ff-accent: #c60c30; --ff-blue: #002244; --ff-blue-soft: rgba(0,34,68,.08); --ff-red: #c60c30; --ff-green: #4a5866; --ff-green-soft: rgba(176,183,188,.20);
-    --ff-pill-bg: #002244; --ff-pill-ink: #ffffff;
-  }
   /* ---------- Player ring: glowing cards on a reflective pool ---------- */
   @media (min-width: 900px) { .skin-relay .ff-page[data-page="team"] > .ff-carousel-sec { grid-column: 1 / -1; } }
   .ffc { position: relative; height: var(--ffc-h, 380px); border-radius: 18px; overflow: hidden; background: radial-gradient(120% 70% at 50% 30%, #15161a 0%, #08090b 55%, #030304 100%); cursor: grab; outline: none; user-select: none; -webkit-user-select: none; touch-action: pan-y; margin-bottom: 14px; }
@@ -582,40 +522,7 @@ window.dash = (() => {
   @keyframes ffc-sheen { from { background-position: 0 0; } to { background-position: 0 70px; } }
 
 
-  /* Friends' team buttons in their NFL team colors */
-  .ff .ff-teams .ff-teambtn[data-team="Wesley"] { background: #00256b; color: #fff; border: 1px solid #c60c30; }
-  .ff .ff-teams .ff-teambtn[data-team="Wesley"] .ff-dot { background: #e8334a; box-shadow: 0 0 8px rgba(232,51,74,.7); }
-  .ff .ff-teams .ff-teambtn[data-team="Gevers"] { background: #021426; color: #fff; border: 1px solid #69be28; }
-  .ff .ff-teams .ff-teambtn[data-team="Gevers"] .ff-dot { background: #69be28; box-shadow: 0 0 8px rgba(105,190,40,.7); }
-  .ff .ff-teams .ff-teambtn[data-team="Dennis"],
-  .ff .ff-teams .ff-teambtn[data-team="Carlier"] { background: linear-gradient(160deg, #e2cd9f, #c4a86f); border: 1px solid #e9d6aa; }
-  .ff .ff-teams .ff-teambtn[data-team="Dennis"] .ff-dot,
-  .ff .ff-teams .ff-teambtn[data-team="Carlier"] .ff-dot { background: #ffffff; box-shadow: 0 0 6px rgba(255,255,255,.7); }
-  /* White names on Dennis and Carlier; a soft shadow keeps them legible over gold */
-  .ff .ff-teams .ff-teambtn[data-team="Dennis"] .ff-teamname,
-  .ff .ff-teams .ff-teambtn[data-team="Carlier"] .ff-teamname { color: #fff; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,.65), 0 0 1px rgba(0,0,0,.8); }
-  .ff .ff-teams .ff-teambtn[data-team="Darryl"] { background: #e31837; color: #fff; border: 1px solid #ffb81c; }
-  .ff .ff-teams .ff-teambtn[data-team="Darryl"] .ff-dot { background: #ffb81c; box-shadow: 0 0 8px rgba(255,184,28,.7); }
-  .ff .ff-teams .ff-teambtn[data-team="Darryl"][aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #ffb81c, 0 6px 20px rgba(227,24,55,.45); }
-  .ff .ff-teams .ff-teambtn[data-team="Eric-Jan"] { background: #aa0000; color: #fff; border: 1px solid #b3995d; }
-  .ff .ff-teams .ff-teambtn[data-team="Eric-Jan"] .ff-dot { background: #b3995d; box-shadow: 0 0 8px rgba(179,153,93,.7); }
-  .ff .ff-teams .ff-teambtn[data-team="Eric-Jan"][aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #b3995d, 0 6px 20px rgba(170,0,0,.45); }
-  .ff .ff-teams .ff-teambtn[data-team="Connor"] { background: #002244; color: #fff; border: 1px solid #c60c30; }
-  .ff .ff-teams .ff-teambtn[data-team="Connor"] .ff-dot { background: #c60c30; box-shadow: 0 0 8px rgba(198,12,48,.7); }
-  .ff .ff-teams .ff-teambtn[data-team="Connor"][aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #b0b7bc, 0 6px 20px rgba(0,34,68,.55); }
-  .ff .ff-teams .ff-teambtn[data-team="Connor"],
-  .ff .ff-teams .ff-teambtn[data-team="Eric-Jan"],
-  .ff .ff-teams .ff-teambtn[data-team="Darryl"],
-  .ff .ff-teams .ff-teambtn[data-team="Wesley"],
-  .ff .ff-teams .ff-teambtn[data-team="Gevers"],
-  .ff .ff-teams .ff-teambtn[data-team="Dennis"],
-  .ff .ff-teams .ff-teambtn[data-team="Carlier"] { opacity: .78; transition: opacity .2s, box-shadow .2s; }
-  .ff .ff-teams .ff-teambtn[data-team]:hover { opacity: 1; }
-  .ff .ff-teams .ff-teambtn[data-team="Wesley"][aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #e8334a, 0 6px 20px rgba(0,37,107,.5); }
-  .ff .ff-teams .ff-teambtn[data-team="Gevers"][aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #69be28, 0 6px 20px rgba(2,20,38,.5); }
-  .ff .ff-teams .ff-teambtn[data-team="Dennis"][aria-pressed="true"],
-  .ff .ff-teams .ff-teambtn[data-team="Carlier"][aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #d3bc8d, 0 6px 20px rgba(0,0,0,.4); }
-
+  
 
   /* ---------- Waivers, impact, usage, injuries, heat ---------- */
   @media (min-width: 900px) { .ff-page > .ff-wide { grid-column: 1 / -1; } }
@@ -680,6 +587,16 @@ window.dash = (() => {
   .ff-pl-inj .ff-inj-row { border-top: 0; padding-top: 0; }
 
 
+  /* DutchNFL header, one style for everyone, News and Waivers removed */
+  .ff-brand-main .ff-brand-name { font-size: 26px; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+  .ff-brand-main .ff-brand-name b { font-weight: 800; color: #d3bc8d; }
+  .skin-card .ff-brand.ff-brand-main { padding: 8px 18px; }
+  .ff-teams[hidden], .ff-refresh, .ff-ask, .ff-page[data-page="transfers"], .ff-page[data-page="waivers"] { display: none !important; }
+  .ff .ff-teams .ff-teambtn[data-team] { background: var(--ff-bg) !important; border-color: var(--ff-line) !important; color: var(--ff-ink-2) !important; }
+  .ff .ff-teams .ff-teambtn[data-team] .ff-dot { background: var(--ff-muted) !important; box-shadow: none !important; }
+  .ff .ff-teams .ff-teambtn[data-team][aria-pressed="true"] { background: var(--ff-pill-bg) !important; color: var(--ff-pill-ink) !important; border-color: var(--ff-pill-bg) !important; }
+  .ff .ff-teams .ff-teambtn[data-team][aria-pressed="true"] .ff-teamname { color: var(--ff-pill-ink) !important; }
+  .ff-teams { flex-wrap: wrap; }
   .ff-more { position: relative; display: inline-flex; }
   .ff-more-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .ff-moreteams { appearance: none; -webkit-appearance: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--ff-ink-2); background: var(--ff-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center; border: 1px solid var(--ff-line); border-radius: 999px; padding: 9px 36px 9px 18px; cursor: pointer; max-width: 100%; }
@@ -814,12 +731,10 @@ window.dash = (() => {
     </div>
   </div>
   <header class="ff-top">
-    <div class="ff-brand"><span class="ff-mark">FF</span><span>Fantasy Football</span></div>
+    <div class="ff-brand ff-brand-main"><span class="ff-brand-name">Dutch<b>NFL</b></span></div>
     <nav class="ff-tabs" role="tablist" aria-label="Pages">
-      <button type="button" class="ff-tab" role="tab" data-tab="team" aria-selected="true" id="tab-team"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span class="ff-tab-l">Team</span><span class="ff-tab-s">Team</span></button>
-      <button type="button" class="ff-tab" role="tab" data-tab="transfers" aria-selected="false" id="tab-transfers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg><span class="ff-tab-l">News</span><span class="ff-tab-s">News</span></button>
-      <button type="button" class="ff-tab" role="tab" data-tab="waivers" aria-selected="false" id="tab-waivers"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="ff-tab-l">Waivers</span><span class="ff-tab-s">Waivers</span></button>
-      <button type="button" class="ff-tab" role="tab" data-tab="league" aria-selected="false" id="tab-league"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.5 4.5 3 5M17 6h3c0 3-1.5 4.5-3 5M10 14h4l1 4H9zM8 20h8"/></svg><span class="ff-tab-l">League</span><span class="ff-tab-s">League</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="league" aria-selected="true" id="tab-league"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.5 4.5 3 5M17 6h3c0 3-1.5 4.5-3 5M10 14h4l1 4H9zM8 20h8"/></svg><span class="ff-tab-l">League</span><span class="ff-tab-s">League</span></button>
+      <button type="button" class="ff-tab" role="tab" data-tab="team" aria-selected="false" id="tab-team"><svg class="ff-tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span class="ff-tab-l">Team</span><span class="ff-tab-s">Team</span></button>
     </nav>
     <button type="button" class="ff-theme ff-refresh" aria-label="Copy a refresh prompt to send Claude in the chat">
       <span class="ff-refresh-idle"><svg class="ff-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>Refresh news</span>
@@ -841,18 +756,22 @@ window.dash = (() => {
     </div>
   </div>
 
-  <nav class="ff-teams" aria-label="Teams">
+  <nav class="ff-teams" aria-label="Teams" hidden>
     <button type="button" class="ff-teambtn" data-team="Dennis" aria-pressed="true"><span class="ff-dot"></span><span class="ff-teamname">Dennis</span></button>
     <button type="button" class="ff-teambtn" data-team="Wesley" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Wesley</span></button>
     <button type="button" class="ff-teambtn" data-team="Carlier" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Carlier</span></button>
     <button type="button" class="ff-teambtn" data-team="Gevers" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Gevers</span></button>
+    <button type="button" class="ff-teambtn" data-team="Melvin" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Melvin</span></button>
+    <button type="button" class="ff-teambtn" data-team="André" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">André</span></button>
+    <button type="button" class="ff-teambtn" data-team="Thijs" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Thijs</span></button>
     <button type="button" class="ff-teambtn" data-team="Darryl" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Darryl</span></button>
+    <button type="button" class="ff-teambtn" data-team="Matt" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Matt</span></button>
+    <button type="button" class="ff-teambtn" data-team="Ylon" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Ylon</span></button>
     <button type="button" class="ff-teambtn" data-team="Eric-Jan" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Eric-Jan</span></button>
     <button type="button" class="ff-teambtn" data-team="Connor" aria-pressed="false"><span class="ff-dot"></span><span class="ff-teamname">Connor</span></button>
-    <label class="ff-more"><span class="ff-more-label">More teams</span><select class="ff-moreteams" aria-label="More DutchNFL teams"><option value="">More teams…</option><option value="André">André · The Hague Old Rocker</option><option value="Matt">Matt · Drake &quot;Drake Maye&quot; Maye</option><option value="Melvin">Melvin · Mella020</option><option value="Thijs">Thijs · Bo-Nixflix and chill</option><option value="Ylon">Ylon · Blue Mountain State</option></select></label>
   </nav>
 
-  <section class="ff-page" data-page="team" id="team" aria-labelledby="tab-team">
+  <section class="ff-page" data-page="team" id="team" aria-labelledby="tab-team" hidden>
     <div class="ff-section ff-carousel-sec" id="ff-carousel">
       <h2 class="ff-h2">Players</h2>
       <p class="ff-note">Drag to spin the ring, or use the arrow keys. The player who stops in front opens below; click any card to jump to him.</p>
@@ -917,7 +836,7 @@ window.dash = (() => {
     </div>
   </section>
 
-  <section class="ff-page" data-page="league" id="league" aria-labelledby="tab-league" hidden>
+  <section class="ff-page" data-page="league" id="league" aria-labelledby="tab-league">
     <div class="ff-hero lg-hero">
       <div class="lg-trophy" aria-hidden="true"><svg viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lgCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e7bf"/><stop offset=".45" stop-color="#d3bc8d"/><stop offset="1" stop-color="#7a6336"/></linearGradient><linearGradient id="lgBase" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2a2a2e"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><path d="M34 14h72v34c0 26-16 44-36 44S34 74 34 48z" fill="url(#lgCup)"/><path d="M34 22H18c0 22 10 34 20 36M106 22h16c0 22-10 34-20 36" fill="none" stroke="url(#lgCup)" stroke-width="7" stroke-linecap="round"/><path d="M60 92h20l4 22H56z" fill="url(#lgCup)"/><rect x="40" y="114" width="60" height="10" rx="3" fill="url(#lgCup)"/><rect x="30" y="124" width="80" height="34" rx="5" fill="url(#lgBase)" stroke="#d3bc8d" stroke-opacity=".5"/><rect x="44" y="134" width="52" height="12" rx="2" fill="#d3bc8d" opacity=".85"/><path d="M48 24c2 18 8 30 18 36" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/></svg></div>
       <h1 class="ff-title">League</h1>
@@ -948,7 +867,7 @@ window.dash = (() => {
     </div>
     <div class="ff-section" id="lg-prizes">
       <h2 class="ff-h2">Prize race</h2>
-      <p class="ff-note">Who holds each pot right now.<span class="lg-live"> The four teams on this dashboard wear their colors.</span></p>
+      <p class="ff-note">Who holds each pot right now.</p>
       <div class="lg-prizes" data-draw="lg-prizes" data-source="league_awards league_managers league_weeks roster stats">—</div>
     </div>
     <div class="ff-section" id="lg-race">
@@ -1260,7 +1179,7 @@ window.dash = (() => {
     </div>
   </section>
 
-  <p class="ff-foot">News refreshes automatically at 08:41, 13:41 and 18:41, and every hour on Sunday evenings. Refresh copies a prompt you can send Claude in the chat for an update right away. Each item shows its publish time, and Sources shows when each set was last updated. Compiled from ESPN, NFL.com, team sites, NBC Sports (Rotoworld), RotoWire, FantasyPros, SI, Yahoo Sports, Bleacher Report and Athlon Sports. Projections and kickoff times come from your ESPN roster screen.</p>
+  <p class="ff-foot">Standings and rosters are updated from the ESPN league (ID 1954882792).</p>
 
 </div>
 
@@ -2136,7 +2055,7 @@ window.dash = (() => {
   const LG_ENTRY = 50; // entry fee per manager
   const lgRows = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : []; };
   const lgTeamOf = (m) => (lgRows('league_managers').find((r) => r.manager === m) || {}).dashboard_team || '';
-  const lgTag = (m) => { const t = mk('span', 'lg-tag' + (lgTeamOf(m) ? ' t-' + lgTeamOf(m) : ''), null); t.append(mk('span', 'ff-dot'), document.createTextNode(m)); return t; };
+  const lgTag = (m) => { const t = mk('span', 'lg-tag', null); t.append(mk('span', 'ff-dot'), document.createTextNode(m)); return t; };
   const lgWeeksPlayed = () => Math.max(0, ...lgRows('league_weeks').map((w) => w.week));
   const lgTable = () => {
     const weeks = lgRows('league_weeks'), n = lgWeeksPlayed();
@@ -2694,7 +2613,7 @@ window.dash = (() => {
       st.rows = {};
       const focus = lgFocus();
       mgrs.forEach((m) => {
-        const row = mk('div', 'br-row' + (m === focus ? ' focus' : '') + (lgTeamOf(m) ? ' t-' + lgTeamOf(m) : ''));
+        const row = mk('div', 'br-row' + (m === focus ? ' focus' : ''));
         const name = mk('span', 'br-name'); name.append(lgTeamOf(m) ? lgTag(m) : document.createTextNode(m));
         const lane = mk('span', 'br-lane'); row.bar = mk('span', 'br-bar'); row.val = mk('span', 'br-val');
         lane.append(row.bar, row.val);
@@ -2756,14 +2675,15 @@ window.dash = (() => {
       el.classList.toggle('skin-ember', skin === 'ember');
       el.classList.toggle('skin-fluenta', skin === 'fluenta');
       el.classList.toggle('skin-relay', skin === 'relay');
-      ['dennis', 'wesley', 'carlier', 'gevers', 'darryl', 'eric-jan', 'connor'].forEach((k) => el.classList.toggle('team-' + k, teamOf().toLowerCase() === k));
+      
       el.classList.toggle('skin-card', true);
     });
     document.querySelectorAll('.ff-skin').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.skin === skin)));
     if ((skin === 'relay') !== relayWas) { relayWas = skin === 'relay'; armReveal(relayWas); }
     document.querySelectorAll('.ff-theme-to-dark').forEach((el) => { el.hidden = dark; });
     document.querySelectorAll('.ff-theme-to-light').forEach((el) => { el.hidden = !dark; });
-    const tab = ['transfers', 'waivers', 'league'].includes(p.tab) ? p.tab : 'team';
+    const tab = p.tab === 'team' ? 'team' : 'league';
+    document.querySelectorAll('.ff-teams').forEach((n) => { n.hidden = tab !== 'team'; });
     const wp = p.wpos || 'all';
     document.querySelectorAll('.ff-wchip').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.wpos === wp)));
     document.querySelectorAll('.ff-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
