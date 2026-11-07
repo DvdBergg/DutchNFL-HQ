@@ -850,21 +850,12 @@ window.dash = (() => {
       <div class="ff-tiles">
         <div class="ff-tile alert lg-shot-only"><span class="ff-tile-label">Leader</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="leader">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="leader-sub">—</span></div>
         <div class="ff-tile lg-shot-only"><span class="ff-tile-label">Season high</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_weeks" data-field="high">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_weeks" data-field="high-sub">—</span></div>
-        <div class="ff-tile lg-live"><span class="ff-tile-label">Your record</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="record">—</span></div>
-        <div class="ff-tile alert lg-live"><span class="ff-tile-label">Your rank</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="rank">—</span></div>
+        <div class="ff-tile alert"><span class="ff-tile-label">Beat the Median · week <span data-draw="lg-tile" data-source="league_managers league_weeks" data-field="wk">—</span></span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="btm-wk">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="btm-wk-sub">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="btm-season">—</span></div>
+        <div class="ff-tile"><span class="ff-tile-label">Out of the Guillotine · week <span data-draw="lg-tile" data-source="league_managers league_weeks" data-field="wk">—</span></span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="wcut">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="gl-exit-sub">—</span></div>
         <div class="ff-tile"><span class="ff-tile-label">Guillotine alive</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_managers league_weeks" data-field="alive">—</span></div>
         <div class="ff-tile"><span class="ff-tile-label">Prize pool</span><span class="ff-tile-value" data-draw="lg-tile" data-source="league_awards league_managers" data-field="pool">—</span><span class="lg-tile-sub" data-draw="lg-tile" data-source="league_awards league_managers" data-field="pool-split">—</span></div>
       </div>
-      <div class="lg-week lg-shot-only">
-        <span class="lg-week-k">Week <span data-draw="lg-tile" data-source="league_weeks" data-field="wk">—</span> in short</span>
-        <div class="lg-week-grid">
-          <div class="lg-week-i"><span>Top score</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wtop">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wtop-pts">—</i></div>
-          <div class="lg-week-i"><span>Lowest score</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wlow">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wlow-pts">—</i></div>
-          <div class="lg-week-i"><span>Guillotine cut</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wcut">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wcut-pts">—</i></div>
-          <div class="lg-week-i"><span>League median</span><b data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wmed">—</b><i data-draw="lg-tile" data-source="league_weeks league_managers" data-field="wmed-pts">—</i></div>
-        </div>
       </div>
-    </div>
     <div class="ff-section" id="lg-prizes">
       <h2 class="ff-h2">Prize race</h2>
       <p class="ff-note">Who holds each pot right now.</p>
@@ -2094,7 +2085,15 @@ window.dash = (() => {
       const v = {wtop: best && best.manager, 'wtop-pts': pts(best), wlow: worst && worst.manager, 'wlow-pts': pts(worst), wcut: cutM ? cutM.manager : 'Nobody', 'wcut-pts': pts(cut), wmed: wk[0] ? fmtPts(wk[0].median) : '', 'wmed-pts': wk[0] ? 'pts' : ''}[f];
       el.textContent = v || '—';
     }
-    if (f === 'rank') { const r = lgRank(rows, LG_ME); el.textContent = r ? r + ' of ' + rows.length : '—'; }
+    if (f === 'btm-wk' || f === 'btm-wk-sub' || f === 'btm-season' || f === 'gl-exit-sub') {
+      const bw = wk.reduce((a, w) => (!a || w.score > a.score ? w : a), null);
+      const cutM2 = rows.find((r) => r.guillotine_out_week === n), cutW = cutM2 && wk.find((w) => w.manager === cutM2.manager);
+      const bestRec = rows.length ? rows[0].total_wins : 0, lead = rows.filter((r) => r.total_wins === bestRec);
+      if (f === 'btm-wk') el.textContent = bw ? bw.manager : '—';
+      if (f === 'btm-wk-sub') el.textContent = bw ? fmtPts(bw.score) + ' pts · ' + (bw.score >= bw.median ? '+' : '') + fmtPts(bw.score - bw.median) + ' vs median' : '—';
+      if (f === 'btm-season') el.textContent = lead.length ? 'Season leader: ' + lead.map((r) => r.manager).join(', ') + ' (' + lead[0].total_wins + '-' + lead[0].losses + ')' : '—';
+      if (f === 'gl-exit-sub') el.textContent = cutM2 ? (cutW ? fmtPts(cutW.score) + ' pts' : '') : 'No cut yet';
+    }
     if (f === 'alive') el.textContent = rows.filter((r) => !r.guillotine_out_week).length + ' of ' + rows.length;
   });
 
@@ -2151,7 +2150,7 @@ window.dash = (() => {
     rows.forEach((r) => {
       const tr = mk('tr', (r.manager === LG_ME ? 'me' : '') + (r.manager === lgFocus() ? ' focus' : ''));
       tr.dataset.m = r.manager; tr.addEventListener('click', () => dash.setParams({lgfocus: r.manager === LG_ME ? null : r.manager}));
-      const name = mk('td', 'lg-name'); name.append(lgTeamOf(r.manager) ? lgTag(r.manager) : document.createTextNode(r.manager));
+      const name = mk('td', 'lg-name'); name.append(lgTag(r.manager));
       tr.append(mk('td', 'num', String(lgRank(rows, r.manager))), name,
         mk('td', 'num lg-rec', r.total_wins + '-' + r.losses),
         mk('td', 'num', r.h2h_wins + '-' + (n - r.h2h_wins)),
@@ -2176,7 +2175,7 @@ window.dash = (() => {
     const topOf = (wk) => Math.max(...weeks.filter((w) => w.week === wk).map((w) => w.score));
     rows.forEach((r) => {
       const tr = mk('tr', r.manager === LG_ME ? 'me' : '');
-      const name = mk('td', 'lg-name'); name.append(lgTeamOf(r.manager) ? lgTag(r.manager) : document.createTextNode(r.manager));
+      const name = mk('td', 'lg-name'); name.append(lgTag(r.manager));
       tr.append(name);
       for (let wk = 1; wk <= n; wk++) {
         const w = at(r.manager, wk);
@@ -2235,7 +2234,7 @@ window.dash = (() => {
     stats.forEach((s, i) => {
       const c = mk('div', 'gl-card' + (i === 0 ? ' danger' : '') + (s.m === LG_ME ? ' me' : '') + (s.m === lgFocus() ? ' focus' : ''));
       const top = mk('div', 'gl-card-top');
-      top.append(lgTeamOf(s.m) ? lgTag(s.m) : mk('span', 'gl-name', s.m), mk('span', 'gl-badge', i === 0 ? 'Next in line' : 'Alive'));
+      top.append(lgTag(s.m), mk('span', 'gl-badge', i === 0 ? 'Next in line' : 'Alive'));
       const meter = mk('div', 'gl-meter'); const fill = mk('span'); fill.style.width = Math.round(12 + s.risk * 88) + '%'; meter.append(fill);
       const facts = mk('div', 'gl-facts');
       const f = (k, v) => { const d = mk('div'); d.append(mk('span', null, k), mk('b', null, v)); facts.append(d); };
@@ -2614,7 +2613,7 @@ window.dash = (() => {
       const focus = lgFocus();
       mgrs.forEach((m) => {
         const row = mk('div', 'br-row' + (m === focus ? ' focus' : ''));
-        const name = mk('span', 'br-name'); name.append(lgTeamOf(m) ? lgTag(m) : document.createTextNode(m));
+        const name = mk('span', 'br-name'); name.append(lgTag(m));
         const lane = mk('span', 'br-lane'); row.bar = mk('span', 'br-bar'); row.val = mk('span', 'br-val');
         lane.append(row.bar, row.val);
         row.append(name, lane);
