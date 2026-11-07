@@ -2429,7 +2429,6 @@ window.dash = (() => {
       const svg = st.svg.attr('viewBox', [0, 0, w, h]).attr('height', h);
       svg.selectAll('*').remove();
       let reduced = false; try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-      const friend = (m) => !!lgTeamOf(m);
       const x = d3.scalePoint(S.W, [ml + 6, w - mr - 6]);
       const g = svg.append('g');
       const showTip = (px, py, html) => { st.tip.replaceChildren(...html); st.tip.hidden = false; const tw = st.tip.offsetWidth, th = st.tip.offsetHeight; st.tip.style.left = Math.min(w - tw - 4, Math.max(4, px + 14)) + 'px'; st.tip.style.top = Math.max(0, py - th - 10) + 'px'; };
@@ -2470,11 +2469,11 @@ window.dash = (() => {
       if (!isRank) g.append('line').attr('class', 'med').attr('x1', ml).attr('x2', w - mr).attr('y1', y(0)).attr('y2', y(0));
       const rule = g.append('line').attr('class', 'xr').attr('y1', mt).attr('y2', h - mb).attr('opacity', 0);
       const line = d3.line().x((d) => x(d[0])).y((d) => y(d[1]));
-      const ms = g.append('g').selectAll('g').data(S.mgrs).join('g').attr('class', (m) => 'm' + (friend(m) ? ' friend' : '') + (m === focus ? ' focus' : ''));
+      const ms = g.append('g').selectAll('g').data(S.mgrs).join('g').attr('class', (m) => 'm' + (m === focus ? ' focus' : ''));
       const paths = ms.append('path').attr('class', 'ln').attr('d', (m) => line(S.W.map((wk, i) => [wk, val(m, i)])));
       ms.append('g').selectAll('circle').data((m) => S.W.map((wk, i) => [wk, val(m, i)])).join('circle').attr('class', 'dt').attr('cx', (d) => x(d[0])).attr('cy', (d) => y(d[1])).attr('r', 3);
       const last = S.W.length - 1;
-      const labelled = isRank ? S.mgrs : S.mgrs.filter((m) => m === focus || S.rank[m][last] <= 3 || friend(m));
+      const labelled = isRank ? S.mgrs : S.mgrs.filter((m) => m === focus || S.rank[m][last] <= 3);
       const labs = ms.filter((m) => labelled.includes(m)).append('text').attr('class', 'lab').attr('x', w - mr + 8).attr('y', (m) => y(val(m, last))).attr('dy', '0.35em').text((m) => m);
       if (!isRank) {
         // keep end labels from piling on top of each other
