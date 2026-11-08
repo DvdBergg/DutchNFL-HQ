@@ -708,7 +708,7 @@ window.dash = (() => {
   /* Phone: the page tabs become an app-style bar at the bottom of the screen */
   .ff-tab-ico, .ff-tab-s { display: none; }
   @media (max-width: 620px) {
-    .skin-card .ff-tabs { position: fixed; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 60; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; padding: 6px; border-radius: 22px; background: rgba(14,14,16,.9); border: 1px solid var(--ff-line); box-shadow: 0 10px 30px rgba(0,0,0,.5); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); overflow: visible; }
+    .skin-card .ff-tabs { position: fixed; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 60; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; padding: 6px; border-radius: 22px; background: rgba(14,14,16,.9); border: 1px solid var(--ff-line); box-shadow: 0 10px 30px rgba(0,0,0,.5); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); overflow: visible; }
     .ff:not(.dark) .ff-tabs { background: rgba(255,255,255,.92); }
     .skin-card .ff-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 2px 6px; border-radius: 16px; font-size: 11px; font-weight: 600; line-height: 1.1; min-height: 0; }
     .ff-tab .ff-tab-ico { display: block; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
