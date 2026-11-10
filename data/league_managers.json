@@ -1,1 +1,110 @@
-[{"manager": "Wesley", "median_wins": 6, "h2h_wins": 5, "total_wins": 11, "dashboard_team": "Wesley", "guillotine_out_week": 4, "paid": true}, {"manager": "Melvin", "median_wins": 4, "h2h_wins": 3, "total_wins": 7, "dashboard_team": "", "guillotine_out_week": 6, "paid": true}, {"manager": "Eric-Jan", "median_wins": 5, "h2h_wins": 5, "total_wins": 10, "dashboard_team": "Eric-Jan", "guillotine_out_week": null, "paid": true}, {"manager": "Darryl", "median_wins": 1, "h2h_wins": 2, "total_wins": 3, "dashboard_team": "Darryl", "guillotine_out_week": 8, "paid": true}, {"manager": "Gevers", "median_wins": 7, "h2h_wins": 5, "total_wins": 12, "dashboard_team": "Gevers", "guillotine_out_week": null, "paid": true}, {"manager": "Dennis", "median_wins": 5, "h2h_wins": 4, "total_wins": 9, "dashboard_team": "Dennis", "guillotine_out_week": null, "paid": true}, {"manager": "André", "median_wins": 3, "h2h_wins": 2, "total_wins": 5, "dashboard_team": "", "guillotine_out_week": 2, "paid": true}, {"manager": "Connor", "median_wins": 4, "h2h_wins": 6, "total_wins": 10, "dashboard_team": "Connor", "guillotine_out_week": 5, "paid": true}, {"manager": "Matt", "median_wins": 2, "h2h_wins": 1, "total_wins": 3, "dashboard_team": "", "guillotine_out_week": 3, "paid": true}, {"manager": "Carlier", "median_wins": 4, "h2h_wins": 5, "total_wins": 9, "dashboard_team": "Carlier", "guillotine_out_week": 1, "paid": true}, {"manager": "Thijs", "median_wins": 2, "h2h_wins": 4, "total_wins": 6, "dashboard_team": "", "guillotine_out_week": null, "paid": true}, {"manager": "Ylon", "median_wins": 6, "h2h_wins": 5, "total_wins": 11, "dashboard_team": "", "guillotine_out_week": 7, "paid": true}]
+[
+{
+"manager": "Wesley",
+"median_wins": 6,
+"h2h_wins": 6,
+"total_wins": 12,
+"dashboard_team": "Wesley",
+"guillotine_out_week": 4,
+"paid": true
+},
+{
+"manager": "Melvin",
+"median_wins": 4,
+"h2h_wins": 3,
+"total_wins": 7,
+"dashboard_team": "",
+"guillotine_out_week": 6,
+"paid": true
+},
+{
+"manager": "Eric-Jan",
+"median_wins": 5,
+"h2h_wins": 5,
+"total_wins": 10,
+"dashboard_team": "Eric-Jan",
+"guillotine_out_week": null,
+"paid": true
+},
+{
+"manager": "Darryl",
+"median_wins": 2,
+"h2h_wins": 2,
+"total_wins": 4,
+"dashboard_team": "Darryl",
+"guillotine_out_week": 8,
+"paid": true
+},
+{
+"manager": "Gevers",
+"median_wins": 7,
+"h2h_wins": 5,
+"total_wins": 12,
+"dashboard_team": "Gevers",
+"guillotine_out_week": null,
+"paid": true
+},
+{
+"manager": "Dennis",
+"median_wins": 6,
+"h2h_wins": 5,
+"total_wins": 11,
+"dashboard_team": "Dennis",
+"guillotine_out_week": null,
+"paid": true
+},
+{
+"manager": "André",
+"median_wins": 3,
+"h2h_wins": 2,
+"total_wins": 5,
+"dashboard_team": "",
+"guillotine_out_week": 2,
+"paid": true
+},
+{
+"manager": "Connor",
+"median_wins": 5,
+"h2h_wins": 7,
+"total_wins": 12,
+"dashboard_team": "Connor",
+"guillotine_out_week": 5,
+"paid": true
+},
+{
+"manager": "Matt",
+"median_wins": 3,
+"h2h_wins": 2,
+"total_wins": 5,
+"dashboard_team": "",
+"guillotine_out_week": 3,
+"paid": true
+},
+{
+"manager": "Carlier",
+"median_wins": 5,
+"h2h_wins": 6,
+"total_wins": 11,
+"dashboard_team": "Carlier",
+"guillotine_out_week": 1,
+"paid": true
+},
+{
+"manager": "Thijs",
+"median_wins": 2,
+"h2h_wins": 4,
+"total_wins": 6,
+"dashboard_team": "",
+"guillotine_out_week": 9,
+"paid": true
+},
+{
+"manager": "Ylon",
+"median_wins": 7,
+"h2h_wins": 6,
+"total_wins": 13,
+"dashboard_team": "",
+"guillotine_out_week": 7,
+"paid": true
+}
+]
