@@ -646,5 +646,77 @@
 "manager": "Eric-Jan",
 "score": 99.74,
 "median": 119.74
+},
+{
+"week": 10,
+"manager": "Connor",
+"score": 119.32,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Dennis",
+"score": 140.58,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "André",
+"score": 98.1,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Carlier",
+"score": 136.46,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Darryl",
+"score": 122.04,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Gevers",
+"score": 138.24,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Matt",
+"score": 94.22,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Wesley",
+"score": 133.3,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Melvin",
+"score": 133.76,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Ylon",
+"score": 136.22,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Thijs",
+"score": 125.62,
+"median": 128.29
+},
+{
+"week": 10,
+"manager": "Eric-Jan",
+"score": 161.66,
+"median": 128.29
 }
 ]
