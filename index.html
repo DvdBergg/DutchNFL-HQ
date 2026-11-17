@@ -596,6 +596,14 @@ window.dash = (() => {
   .ff .ff-teams .ff-teambtn[data-team] .ff-dot { background: var(--ff-muted) !important; box-shadow: none !important; }
   .ff .ff-teams .ff-teambtn[data-team][aria-pressed="true"] { background: var(--ff-pill-bg) !important; color: var(--ff-pill-ink) !important; border-color: var(--ff-pill-bg) !important; }
   .ff .ff-teams .ff-teambtn[data-team][aria-pressed="true"] .ff-teamname { color: var(--ff-pill-ink) !important; }
+  .gl-finale { margin: 14px 0 6px; padding: 16px 18px; border-radius: 18px; border: 1px solid #b3995d; background: linear-gradient(135deg, rgba(211,188,141,.16), rgba(211,188,141,.04)); text-align: center; }
+  .gl-fin-k { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: #d3bc8d; margin-bottom: 10px; }
+  .gl-fin-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+  .gl-fin-side { display: grid; justify-items: center; gap: 6px; }
+  .gl-fin-avg { font-size: 34px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .gl-fin-sub { font-size: 12px; color: var(--ff-ink-2); }
+  .gl-fin-vs { font-size: 14px; font-weight: 700; color: #d3bc8d; text-transform: uppercase; letter-spacing: .1em; }
+  .gl-fin-note { margin-top: 12px; font-size: 13px; color: var(--ff-ink-2); }
   .ff-teams { flex-wrap: wrap; }
   .ff-more { position: relative; display: inline-flex; }
   .ff-more-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -2204,7 +2212,7 @@ window.dash = (() => {
     // Header: how many are left and when the blade falls next
     const head = mk('div', 'gl-head');
     const big = mk('div', 'gl-count'); big.append(mk('b', null, String(alive.length)), mk('span', null, 'of ' + rows.length + ' still alive'));
-    const next = mk('div', 'gl-next'); next.append(mk('span', 'gl-k', 'Next blade falls'), mk('b', null, 'Week ' + (lastWk + 1)));
+    const next = mk('div', 'gl-next'); next.append(mk('span', 'gl-k', alive.length === 2 ? 'Final blade falls' : 'Next blade falls'), mk('b', null, 'Week ' + (lastWk + 1)));
     const track = mk('div', 'gl-track'); const cuts = rows.length - 1;
     for (let i = 0; i < cuts; i++) { const t = mk('span', 'gl-tick' + (i < out.length ? ' cut' : '')); track.append(t); }
     const trackWrap = mk('div', 'gl-trackwrap'); trackWrap.append(track, mk('span', 'gl-k', out.length + ' of ' + cuts + ' cuts made'));
@@ -2255,7 +2263,19 @@ window.dash = (() => {
       c.addEventListener('click', () => dash.setParams({lgfocus: r.manager === LG_ME ? null : r.manager}));
       fallen.append(c);
     });
-    box.append(head, mk('div', 'lg-g-label', 'Still in the race'), grid, mk('div', 'lg-g-label', 'The fallen'), fallen);
+    let fin = null;
+    if (alive.length === 2) {
+      fin = mk('div', 'gl-finale'); fin.append(mk('div', 'gl-fin-k', 'The finale'));
+      const frow = mk('div', 'gl-fin-row');
+      alive.forEach((r, i) => {
+        const sc = W.map((wk) => scoreOf(r.manager, wk)).filter((v) => v != null), lw = scoreOf(r.manager, lastWk);
+        const side = mk('div', 'gl-fin-side'); side.append(lgTag(r.manager), mk('div', 'gl-fin-avg', d3.mean(sc).toFixed(1)), mk('div', 'gl-fin-sub', 'average · last week ' + (lw != null ? lw.toFixed(1) : '—')));
+        if (i === 1) frow.append(mk('span', 'gl-fin-vs', 'vs'));
+        frow.append(side);
+      });
+      fin.append(frow, mk('div', 'gl-fin-note', 'The lowest score in week ' + (lastWk + 1) + ' is out. The other one wins the Guillotine and $50.'));
+    }
+    box.append(head, ...(fin ? [fin] : []), mk('div', 'lg-g-label', 'Still in the race'), grid, mk('div', 'lg-g-label', 'The fallen'), fallen);
     el.replaceChildren(box);
   });
 
